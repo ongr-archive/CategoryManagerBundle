@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Provider;
+namespace ONGR\CategoryManagerBundle\Provider;
 
-use Fox\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
+use ONGR\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
 
 /**
  * Category data provider interface

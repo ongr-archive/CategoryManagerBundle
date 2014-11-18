@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\EventListener;
+namespace ONGR\CategoryManagerBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
-use Fox\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Entity\Category;
 
 /**
  * Event listener for monitoring category removals
@@ -55,7 +55,7 @@ class CategoryRemoveListener implements EventSubscriber
             return;
         }
 
-        $dql = 'DELETE FoxCategoryManagerBundle:Match AS m ' .
+        $dql = 'DELETE ONGRCategoryManagerBundle:Match AS m ' .
             'WHERE (m.category IN (:categories)) ' .
             'OR (m.matchedCategory IN (:categories))';
 

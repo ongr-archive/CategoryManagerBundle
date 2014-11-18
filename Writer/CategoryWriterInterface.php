@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Writer;
+namespace ONGR\CategoryManagerBundle\Writer;
 
-use Fox\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
+use ONGR\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

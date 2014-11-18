@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Controller;
+namespace ONGR\CategoryManagerBundle\Controller;
 
-use Fox\CategoryManagerBundle\Service\MatchManager;
+use ONGR\CategoryManagerBundle\Service\MatchManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -130,6 +130,6 @@ class MatchManagerController extends Controller
      */
     protected function getMatchManager()
     {
-        return $this->get('fox_category_manager.match_manager');
+        return $this->get('ongr_category_manager.match_manager');
     }
 }

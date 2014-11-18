@@ -8,270 +8,137 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Tests\Functional\Service;
+namespace ONGR\CategoryManagerBundle\Tests\Functional\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Entity\Category;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
-use Fox\CategoryManagerBundle\Service\CategoryManager;
+use ONGR\CategoryManagerBundle\Entity\Match;
+use ONGR\CategoryManagerBundle\Service\CategoryManager;
+use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
 
-class CategoryManagerTest extends \PHPUnit_Framework_TestCase
+class CategoryManagerTest extends BaseDatabaseTest
 {
     /**
-     * Returns entity manager mock
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject|EntityManagerInterface
-     */
-    protected function getEntityManager()
-    {
-        return $this->getMock('Doctrine\\ORM\\EntityManagerInterface');
-    }
-
-    /**
-     * Return repository mock for category entity
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject|CategoryRepository
-     */
-    protected function getCategoryRepository()
-    {
-        return $this->getMockBuilder('Fox\\CategoryManagerBundle\\Repository\\CategoryRepository')
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    /**
-     * Test for getCategory()
-     */
-    public function testGetCategory()
-    {
-        $category = new Category();
-        $entityManager = $this->getEntityManager();
-        $entityManager->expects($this->once())->method('find')->willReturn($category);
-
-        $manager = new CategoryManager($entityManager);
-        $this->assertSame($category, $manager->getCategory('foo'));
-    }
-
-    /**
-     * Test for getCategory() in case document was not found
-     */
-    public function testGetCategoryNull()
-    {
-        $manager = new CategoryManager($this->getEntityManager());
-        $this->assertNull($manager->getCategory('foo'));
-    }
-
-    /**
-     * Test for getCategory() in case document was not found and new is created
-     */
-    public function testGetCategoryNew()
-    {
-        $manager = new CategoryManager($this->getEntityManager());
-        $category = $manager->getCategory('foo', true);
-
-        $this->assertInstanceOf('Fox\\CategoryManagerBundle\\Entity\\Category', $category);
-        $this->assertNull($category->getId());
-    }
-
-    /**
-     * Test for saveCategory()
-     */
-    public function testSaveCategory()
-    {
-        $category = new Category();
-        $category->setId('foo');
-
-        $entityManager = $this->getEntityManager();
-        $entityManager->expects($this->once())->method('persist')->with($category);
-        $entityManager->expects($this->once())->method('flush');
-
-        $manager = new CategoryManager($entityManager);
-        $manager->saveCategory($category);
-    }
-
-    /**
-     * Test for removeCategory()
-     */
-    public function testRemoveCategory()
-    {
-        $category = new Category();
-        $category->setId('foo');
-
-        $entityManager = $this->getEntityManager();
-        $entityManager->expects($this->once())->method('remove')->with($category);
-        $entityManager->expects($this->once())->method('flush');
-
-        $manager = new CategoryManager($entityManager);
-        $manager->removeCategory($category);
-    }
-
-    /**
-     * Test for getCategoryTree()
-     */
-    public function testGetCategoryTree()
-    {
-        $result = ['tree' => 'test'];
-        $parentId = 'test_parent_id';
-
-        $repository = $this->getCategoryRepository();
-        $repository->expects($this->once())
-            ->method('childrenHierarchy')
-            ->with('nodeObject', true, [], true)
-            ->willReturn($result);
-
-        $entityManager = $this->getEntityManager();
-        $entityManager->expects($this->once())
-            ->method('getRepository')
-            ->with('FoxCategoryManagerBundle:Category')
-            ->willReturn($repository);
-        $entityManager->expects($this->once())
-            ->method('getReference')
-            ->with('FoxCategoryManagerBundle:Category', $parentId)
-            ->willReturn('nodeObject');
-
-        $manager = new CategoryManager($entityManager);
-        $this->assertEquals($result, $manager->getCategoryTree($parentId));
-    }
-
-    /**
-     * Data provider for getRootNodes()
+     * Data provider for testPlainTree()
      *
      * @return array
      */
-    public function getRootNodesData()
+    public function getPlainCategoryTreeData()
     {
         $out = [];
 
-        $rootNode = new Category();
-        $rootNode->setId('test_id');
-        $rootNode->setTitle('test_title');
+        // case #0 start from first result, limit to 2 entries
+        $out[] = ['53f4590d0ccec9.39288089', 0, 2, [
+            [
+                'id' => '53f4590d0ccec9.39288089',
+                'title' => 'Kiteboarding',
+                'root' => '53f4590d0ccec9.39288089',
+                'path' => 'Kiteboarding',
+            ],
+            [
+                'id' => '53f45976ef75c9.78862935',
+                'title' => 'Kites',
+                'root' => '53f4590d0ccec9.39288089',
+                'path' => 'Kiteboarding / Kites',
+            ],
+        ]];
 
-        $nodes = [$rootNode];
+        // case #1 start from 3rd result, limit to 3 entries
+        $out[] = ['53f4590d0ccec9.39288089', 2, 3, [
+            [
+                'id' => '53f45979139606.24866601',
+                'title' => 'Kiteboards',
+                'root' => '53f4590d0ccec9.39288089',
+                'path' => 'Kiteboarding / Kiteboards',
+            ],
+            [
+                'id' => '53f4597d709631.23677997',
+                'title' => 'Small',
+                'root' => '53f4590d0ccec9.39288089',
+                'path' => 'Kiteboarding / Kiteboards / Small',
+            ],
+            [
+                'id' => '53f45a8e831510.19801507',
+                'title' => 'Large',
+                'root' => '53f4590d0ccec9.39288089',
+                'path' => 'Kiteboarding / Kiteboards / Large',
+            ],
+        ]];
 
-        $repository = $this->getCategoryRepository();
-        $repository->expects($this->exactly(2))
-            ->method('getRootNodes')
-            ->willReturn($nodes);
-
-        $entityManager = $this->getEntityManager();
-        $entityManager->expects($this->exactly(3))
-            ->method('getRepository')
-            ->with('FoxCategoryManagerBundle:Category')
-            ->willReturn($repository);
-
-        // case #1 without flatten
-        $out[] = [$entityManager, false, $nodes];
-
-        // case #2 with flatten
-        $result = [
-            'test_id' => [
-                'id' => 'test_id',
-                'title' => 'test_title',
-                'root' => null,
-                'path' => null,
-            ]
-        ];
-        $out[] = [$entityManager, true, $result];
+        // case #2 start from 3rd result, limit to zero entries
+        $out[] = ['53f4590d0ccec9.39288089', 2, 0, []];
 
         return $out;
     }
 
     /**
-     * Test for getRootNodes()
+     * Test for getPlainCategoryTree()
      *
-     * @param \PHPUnit_Framework_MockObject_MockObject|EntityManagerInterface $entityManager
-     * @param bool $flatten
-     * @param array $result
-     *
-     * @dataProvider getRootNodesData
-     */
-    public function testGetRootNodes($entityManager, $flatten, $result)
-    {
-        $manager = new CategoryManager($entityManager);
-        $this->assertEquals($result, $manager->getRootNodes($flatten));
-    }
-
-    /**
-     * Data provider for moveCategoryData()
-     *
-     * @return array
-     */
-    public function getMoveCategoryData()
-    {
-        $out = [];
-        $nodeId = 'test_node_id';
-        $parentId = 'test_parent_id';
-
-        // case #1 moved as first child
-        $repository = $this->getCategoryRepository();
-        $repository->expects($this->once())
-            ->method('persistAsFirstChildOf')
-            ->with('node', 'parent');
-        $repository->expects($this->never())
-            ->method('clear');
-
-        $entityManager = $this->getEntityManager();
-        $entityManager->expects($this->once())
-            ->method('getRepository')
-            ->with('FoxCategoryManagerBundle:Category')
-            ->willReturn($repository);
-        $entityManager->expects($this->once())
-            ->method('flush');
-        $entityManager->expects($this->exactly(2))
-            ->method('getReference')
-            ->willReturnMap([
-                ['FoxCategoryManagerBundle:Category', $nodeId, 'node'],
-                ['FoxCategoryManagerBundle:Category', $parentId, 'parent'],
-            ]);
-
-        $out[] = [$entityManager, $nodeId, $parentId, 0];
-
-        // case #2 moved as indexed child
-        $index = 2;
-
-        $repository = $this->getCategoryRepository();
-        $repository->expects($this->once())
-            ->method('persistAsFirstChildOf')
-            ->with('node', 'parent');
-        $repository->expects($this->once())
-            ->method('clear');
-        $repository->expects($this->once())
-            ->method('moveDown')
-            ->with('node', $index);
-
-        $entityManager = $this->getEntityManager();
-        $entityManager->expects($this->once())
-            ->method('getRepository')
-            ->with('FoxCategoryManagerBundle:Category')
-            ->willReturn($repository);
-        $entityManager->expects($this->exactly(2))
-            ->method('flush');
-        $entityManager->expects($this->exactly(3))
-            ->method('getReference')
-            ->willReturnMap([
-                ['FoxCategoryManagerBundle:Category', $nodeId, 'node'],
-                ['FoxCategoryManagerBundle:Category', $parentId, 'parent'],
-                ['FoxCategoryManagerBundle:Category', $nodeId, 'node'],
-            ]);
-
-        $out[] = [$entityManager, $nodeId, $parentId, $index];
-
-        return $out;
-    }
-
-    /**
-     * Test for moveCategory()
-     *
-     * @param \PHPUnit_Framework_MockObject_MockObject|EntityManagerInterface $entityManager $entityManager
-     * @param string $nodeId
      * @param string $rootId
-     * @param int $index
+     * @param int $size
+     * @param int $from
+     * @param array $expectedResult
      *
-     * @dataProvider getMoveCategoryData
+     * @dataProvider getPlainCategoryTreeData
      */
-    public function testMoveCategory($entityManager, $nodeId, $rootId, $index)
+    public function testPlainTree($rootId, $from, $size, $expectedResult)
     {
-        $manager = new CategoryManager($entityManager);
-        $manager->moveCategory($nodeId, $rootId, $index);
+        /* @var CategoryManager $manager */
+        $manager = $this->getContainer()->get('ongr_category_manager.category_manager');
+
+        $result = $manager->getPlainCategoryTree($rootId, null, $size, $from, true);
+
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    /**
+     * Test for getPlainCategoryTree() result as entities array
+     */
+    public function testPlainTreeEntities()
+    {
+        /* @var CategoryManager $manager */
+        $manager = $this->getContainer()->get('ongr_category_manager.category_manager');
+
+        $result = $manager->getPlainCategoryTree('53f4590d0ccec9.39288089', null, 1, 0, false);
+
+        $this->assertCount(1, $result);
+        $this->isInstanceOf($result[0], 'ONGR\CategoryManagerBundle\Entity\Category');
+
+        $this->assertEquals('53f4590d0ccec9.39288089', $result[0]->getId());
+        $this->assertEquals('Kiteboarding', $result[0]->getTitle());
+    }
+
+    public function testPlainTreeFiltered()
+    {
+        /* @var CategoryManager $manager */
+        $manager = $this->getContainer()->get('ongr_category_manager.category_manager');
+        $entityManager = $this->getEntityManager();
+
+        $match = new Match();
+        $match->setCategory(
+            $entityManager->getReference('ONGRCategoryManagerBundle:Category', '53f45976ef75c9.78862935')
+        );
+        $match->setMatchedCategory(
+            $entityManager->getReference('ONGRCategoryManagerBundle:Category', '53f45cc07f55d2.92980246')
+        );
+
+        $entityManager->persist($match);
+        $entityManager->flush();
+
+        $result = $manager->getPlainCategoryTree('53f4590d0ccec9.39288089', '53f45a96c733f6.75280890', 2, 0, true);
+        $expectedResult = [
+            [
+                'id' => '53f4590d0ccec9.39288089',
+                'title' => 'Kiteboarding',
+                'root' => '53f4590d0ccec9.39288089',
+                'path' => 'Kiteboarding',
+            ],
+            [
+                'id' => '53f45979139606.24866601',
+                'title' => 'Kiteboards',
+                'root' => '53f4590d0ccec9.39288089',
+                'path' => 'Kiteboarding / Kiteboards',
+            ],
+        ];
+
+        $this->assertEquals($expectedResult, $result);
     }
 }

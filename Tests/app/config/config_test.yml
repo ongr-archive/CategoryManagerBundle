@@ -50,9 +50,36 @@ doctrine:
             Bundle:
                 type: annotation
                 dir: %kernel.root_dir%/../../Entity
-                alias: FoxCategoryManagerBundle
-                prefix: Fox\CategoryManagerBundle\Entity
+                alias: ONGRCategoryManagerBundle
+                prefix: ONGR\CategoryManagerBundle\Entity
                 is_bundle: false
+
+
+ongr_elasticsearch:
+    connections:
+        default:
+            hosts:
+                - { host: 127.0.0.1:9200 }
+            index_name: ongr-elasticsearch-bundle-test
+            settings:
+                refresh_interval: -1
+                number_of_replicas: 0
+        bar:
+            hosts:
+                - { host: 127.0.0.1:9200 }
+            index_name: ongr-elasticsearch-bundle-bar-test
+            settings:
+                refresh_interval: -1
+                number_of_replicas: 1
+    managers:
+        default:
+            connection: default
+            mappings:
+                - ONGRTestingBundle
+        bar:
+            connection: bar
+            mappings:
+               - ONGRElasticsearchBundle
 
 stof_doctrine_extensions:
     default_locale: en_US
@@ -60,6 +87,6 @@ stof_doctrine_extensions:
         default:
             tree: true
 
-fox_category_manager:
+ongr_category_manager:
     connection:
         index_name: category_manager_test

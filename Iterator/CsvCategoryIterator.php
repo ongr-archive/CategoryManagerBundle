@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Iterator;
+namespace ONGR\CategoryManagerBundle\Iterator;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Entity\Category;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -115,7 +115,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
                 if (empty($value)) {
                     $value = null;
                 } else {
-                    $value = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $value);
+                    $value = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $value);
                 }
             }
 
@@ -178,7 +178,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     protected function checkHeader($fields)
     {
         $availableFields = $this->entityManager->
-            getClassMetadata('Fox\CategoryManagerBundle\Entity\Category')->
+            getClassMetadata('ONGR\CategoryManagerBundle\Entity\Category')->
             getFieldNames();
         $availableFields = array_merge($availableFields, $this->customFields);
 

@@ -1,71 +1,71 @@
-fox_category_manager_home:
+ongr_category_manager_home:
     pattern: /
-    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:list }
+    defaults: { _controller: ONGRCategoryManagerBundle:CategoryManager:list }
 
-fox_category_manager_list:
+ongr_category_manager_list:
     pattern: /list
-    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:list }
+    defaults: { _controller: ONGRCategoryManagerBundle:CategoryManager:list }
 
-fox_category_manager_save:
+ongr_category_manager_save:
     pattern: /save/{categoryId}
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:save }
+    defaults: { _controller: ONGRCategoryManagerBundle:CategoryManager:save }
     requirements:
         categoryId:  '[^/]*'
     options:
         expose: true
 
-fox_category_manager_remove:
+ongr_category_manager_remove:
     pattern: /remove/{categoryId}
-    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:remove }
+    defaults: { _controller: ONGRCategoryManagerBundle:CategoryManager:remove }
     options:
         expose: true
 
-fox_category_manager_plain_tree:
+ongr_category_manager_plain_tree:
     pattern: /tree/plain
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:plainTree }
+    defaults: { _controller: ONGRCategoryManagerBundle:CategoryManager:plainTree }
     options:
         expose: true
 
-fox_category_manager_tree:
+ongr_category_manager_tree:
     pattern: /tree
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:tree }
+    defaults: { _controller: ONGRCategoryManagerBundle:CategoryManager:tree }
     options:
         expose: true
 
-fox_category_manager_move:
+ongr_category_manager_move:
     pattern: /move
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:move}
+    defaults: { _controller: ONGRCategoryManagerBundle:CategoryManager:move}
     options:
         expose: true
 
-fox_category_manager_matches:
+ongr_category_manager_matches:
     pattern: /matches
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:MatchManager:matches}
+    defaults: { _controller: ONGRCategoryManagerBundle:MatchManager:matches}
     options:
         expose: true
 
-fox_category_manager_match:
+ongr_category_manager_match:
     pattern: /match
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:MatchManager:match}
+    defaults: { _controller: ONGRCategoryManagerBundle:MatchManager:match}
     options:
         expose: true
 
-fox_category_manager_remove_match:
+ongr_category_manager_remove_match:
     pattern: /remove-match
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:MatchManager:removeMatch}
+    defaults: { _controller: ONGRCategoryManagerBundle:MatchManager:removeMatch}
     options:
         expose: true
 
-fox_category_manager_suggestions:
+ongr_category_manager_suggestions:
     pattern: /suggestions
     methods: [POST]
-    defaults: { _controller: FoxCategoryManagerBundle:Suggestions:list}
+    defaults: { _controller: ONGRCategoryManagerBundle:Suggestions:list}
     options:
         expose: true

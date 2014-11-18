@@ -224,7 +224,7 @@ angular
                     var parentId = event.dest.nodesScope.node.id;
                     var index = event.dest.index;
 
-                    $http({method: "POST", url: Routing.generate('fox_category_manager_move'), data: {
+                    $http({method: "POST", url: Routing.generate('ongr_category_manager_move'), data: {
                         node: nodeId,
                         parent: parentId,
                         index: index
@@ -277,7 +277,7 @@ angular
 
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_tree'),
+                    url: Routing.generate('ongr_category_manager_tree'),
                     data: { parentId: loadId }
                 }).success(function(data, status) {
                     if (parentNode) {
@@ -336,7 +336,7 @@ angular
 
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_plain_tree'),
+                    url: Routing.generate('ongr_category_manager_plain_tree'),
                     data: {
                         parentId: $scope.rootNodeId,
                         matchRootId: matchRootId,
@@ -385,7 +385,7 @@ angular
                 $http({
                     method: "DELETE",
                     url: Routing.generate(
-                        'fox_category_manager_remove',
+                        'ongr_category_manager_remove',
                         {
                             'categoryId': node.id
                         }

@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Provider;
+namespace ONGR\CategoryManagerBundle\Provider;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
-use Fox\CategoryManagerBundle\Iterator\EntityManagerAwareInterface;
+use ONGR\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
+use ONGR\CategoryManagerBundle\Iterator\EntityManagerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -62,7 +62,7 @@ class CategoryProvider implements CategoryProviderInterface
             throw new \LogicException("Provider must have service container injected.");
         }
 
-        return $this->container->get('fox_category_manager.entity_manager');
+        return $this->container->get('ongr_category_manager.entity_manager');
     }
 
     /**

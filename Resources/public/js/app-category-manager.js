@@ -7,7 +7,7 @@
  */
 
 angular
-    .module('fox.category-manager', [
+    .module('ongr.category-manager', [
         'ui.bootstrap',
         'ui.tree',
         'infinite-scroll',

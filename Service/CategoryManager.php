@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Service;
+namespace ONGR\CategoryManagerBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
-use Fox\CategoryManagerBundle\Entity\Category;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
 
 /**
  * Provides basic CRUD operations for category manager
@@ -45,7 +45,7 @@ class CategoryManager
      */
     public function getCategory($categoryId, $mustExist = false)
     {
-        $category = $this->entityManager->find('FoxCategoryManagerBundle:Category', $categoryId);
+        $category = $this->entityManager->find('ONGRCategoryManagerBundle:Category', $categoryId);
 
         if ($category === null && $mustExist) {
             $category = new Category();
@@ -86,9 +86,9 @@ class CategoryManager
     public function getCategoryTree($parentId)
     {
         /** @var CategoryRepository $repo */
-        $repo = $this->entityManager->getRepository('FoxCategoryManagerBundle:Category');
+        $repo = $this->entityManager->getRepository('ONGRCategoryManagerBundle:Category');
 
-        $rootNodeReference = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $parentId);
+        $rootNodeReference = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $parentId);
 
         // Get tree from provided parent node, with only direct children, no formatting options and include parent node
         $tree = $repo->childrenHierarchy(
@@ -111,7 +111,7 @@ class CategoryManager
     public function getRootNodes($flatten = false)
     {
         /** @var CategoryRepository $repo */
-        $repo = $this->entityManager->getRepository('FoxCategoryManagerBundle:Category');
+        $repo = $this->entityManager->getRepository('ONGRCategoryManagerBundle:Category');
 
         return ($flatten) ? $this->flattenNodes($repo->getRootNodes()) : $repo->getRootNodes();
     }
@@ -126,10 +126,10 @@ class CategoryManager
     public function moveCategory($nodeId, $parentId, $index = 0)
     {
         /** @var CategoryRepository $repo */
-        $repo = $this->entityManager->getRepository('FoxCategoryManagerBundle:Category');
+        $repo = $this->entityManager->getRepository('ONGRCategoryManagerBundle:Category');
 
-        $nodeReference = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $nodeId);
-        $parentReference = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $parentId);
+        $nodeReference = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $nodeId);
+        $parentReference = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $parentId);
 
         $repo->persistAsFirstChildOf($nodeReference, $parentReference);
 
@@ -137,7 +137,7 @@ class CategoryManager
             // need to finish last operation, otherwise tree will loose references
             $this->entityManager->flush();
             $repo->clear();
-            $nodeReference = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $nodeId);
+            $nodeReference = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $nodeId);
 
             $repo->moveDown($nodeReference, $index);
         }
@@ -158,11 +158,11 @@ class CategoryManager
      */
     public function getPlainCategoryTree($rootId, $matchRootId = null, $size = 5, $from = 0, $flatten = false)
     {
-        $dql = 'SELECT c FROM FoxCategoryManagerBundle:Category AS c ';
+        $dql = 'SELECT c FROM ONGRCategoryManagerBundle:Category AS c ';
         if ($matchRootId) {
-            $dql .= 'LEFT JOIN FoxCategoryManagerBundle:Match match1 WITH c = match1.category ' .
+            $dql .= 'LEFT JOIN ONGRCategoryManagerBundle:Match match1 WITH c = match1.category ' .
                 'LEFT JOIN match1.matchedCategory as match1Category WITH match1Category.root = :matchRoot ' .
-                'LEFT JOIN FoxCategoryManagerBundle:Match match2 WITH c = match2.matchedCategory ' .
+                'LEFT JOIN ONGRCategoryManagerBundle:Match match2 WITH c = match2.matchedCategory ' .
                 'LEFT JOIN match2.category as match2Category WITH match2Category.root = :matchRoot ';
         }
         $dql .= 'WHERE c.root = :rootId ';
@@ -200,7 +200,7 @@ class CategoryManager
         $out = [];
 
         /* @var CategoryRepository $repo */
-        $repo = $this->entityManager->getRepository('FoxCategoryManagerBundle:Category');
+        $repo = $this->entityManager->getRepository('ONGRCategoryManagerBundle:Category');
 
         /** @var Category $node */
         foreach ($nodes as $node) {

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\DependencyInjection;
+namespace ONGR\CategoryManagerBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fox_category_manager');
+        $rootNode = $treeBuilder->root('ongr_category_manager');
 
         $rootNode
             ->children()
@@ -35,7 +35,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('index_name')
-                            ->defaultValue('fox-category-manager')
+                            ->defaultValue('ongr-category-manager')
                             ->info('Index name for category manager')
                         ->end()
                         ->scalarNode('host')

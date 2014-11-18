@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Service;
+namespace ONGR\CategoryManagerBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
-use Fox\DDALBundle\Core\Filter;
-use Fox\DDALBundle\Core\Query;
-use Fox\DDALBundle\Core\SessionModel;
-use Fox\DDALBundle\ElasticSearch\ResultsIterator;
-use Fox\DDALBundle\Query\Filters\Sort\Sort;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\DDALBundle\Core\Filter;
+use ONGR\DDALBundle\Core\Query;
+use ONGR\DDALBundle\Core\SessionModel;
+use ONGR\DDALBundle\ElasticSearch\ResultsIterator;
+use ONGR\DDALBundle\Query\Filters\Sort\Sort;
 
 class SuggestionsManager
 {
@@ -45,7 +45,7 @@ class SuggestionsManager
     {
         $this->sessionModel = $sessionModel;
         $this->entityManager = $entityManager;
-        $this->repository = $entityManager->getRepository('FoxCategoryManagerBundle:Category');
+        $this->repository = $entityManager->getRepository('ONGRCategoryManagerBundle:Category');
     }
 
     /**
@@ -59,7 +59,7 @@ class SuggestionsManager
      */
     public function getSuggestions($categoryId, $rootId = null, $sort = true)
     {
-        $reference = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $categoryId);
+        $reference = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $categoryId);
         $path = $this->repository->getTitlePath($reference);
 
         $query = new Query();

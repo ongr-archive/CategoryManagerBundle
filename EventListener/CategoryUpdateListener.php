@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\EventListener;
+namespace ONGR\CategoryManagerBundle\EventListener;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Fox\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Entity\Category;
 
 /**
  * Event listener for doctrine prePersist event, used for assigning id to entity if non is available

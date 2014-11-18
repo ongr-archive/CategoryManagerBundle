@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Controller;
+namespace ONGR\CategoryManagerBundle\Controller;
 
-use Fox\CategoryManagerBundle\Service\SuggestionsManager;
+use ONGR\CategoryManagerBundle\Service\SuggestionsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,6 +64,6 @@ class SuggestionsController extends Controller
      */
     protected function getSuggestionsManager()
     {
-        return $this->get('fox_category_manager.suggestions_manager');
+        return $this->get('ongr_category_manager.suggestions_manager');
     }
 }

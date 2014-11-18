@@ -19,6 +19,6 @@ angular
             host = location.$$host;
             protocol = location.$$protocol;
 
-            return protocol + '://' + host +'/bundles/foxcategorymanager/js/' + asset;
+            return protocol + '://' + host +'/bundles/ongrcategorymanager/js/' + asset;
         }
     }]);

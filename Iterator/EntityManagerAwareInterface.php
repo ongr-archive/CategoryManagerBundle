@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Iterator;
+namespace ONGR\CategoryManagerBundle\Iterator;
 
 use Doctrine\ORM\EntityManagerInterface;
 

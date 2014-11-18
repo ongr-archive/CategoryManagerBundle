@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Modifier;
+namespace ONGR\CategoryManagerBundle\Modifier;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Entity\Category;
-use Fox\CategoryManagerBundle\Model\NodeModel;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
-use Fox\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use Fox\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use Fox\DDALBundle\Core\BaseModel;
+use ONGR\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Model\NodeModel;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
+use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
+use ONGR\DDALBundle\Core\BaseModel;
 
 /**
  * Modifier for converting category entity to node document
@@ -41,7 +41,7 @@ class NodeModifier implements ModifierInterface
     public function __construct(EntityManagerInterface $manager)
     {
         $this->entityManager = $manager;
-        $this->repository = $manager->getRepository('FoxCategoryManagerBundle:Category');
+        $this->repository = $manager->getRepository('ONGRCategoryManagerBundle:Category');
     }
 
     /**

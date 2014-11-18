@@ -1,18 +1,26 @@
 {
-    "name": "nfq-extremes/fox-category-manager",
-    "description": "FOXX Category Manager",
+    "name": "ongr/category-manager-bundle",
+    "description": "ONGR Category Manager",
     "type": "symfony-bundle",
     "license": "proprietary",
     "authors": [
         {
-            "name": "FOXX team",
-            "homepage": "http://www.nfq.com"
+            "name": "ONGR",
+            "homepage": "http://www.ongr.io"
         }
     ],
     "repositories": [
         {
             "type": "composer",
             "url": "http://packagist.fox.nfq.lt"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:ongr-io/ConnectionsBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:ongr-io/ElasticsearchBundle.git"
         }
     ],
     "require": {
@@ -21,17 +29,19 @@
         "doctrine/orm": "~2.4",
         "doctrine/doctrine-bundle": "~1.2",
         "stof/doctrine-extensions-bundle": "~1.1",
-        "nfq-extremes/fox-ddal": "~2.3",
-        "nfq-extremes/fox-connections": "~2.3",
-        "friendsofsymfony/jsrouting-bundle": "~1.5"
+        "friendsofsymfony/jsrouting-bundle": "~1.5",
+        "ongr/connections-bundle": "dev-master"
     },
     "require-dev": {
-        "nfq-extremes/fox-qa": "1.*"
+        "phpunit/phpunit": "~4.2",
+        "squizlabs/php_codesniffer": "~1.5",
+        "ongr/testing-bundle": "~1.0",
+        "ongr/ongr-strict-standard": "~1.0.0-beta"
     },
     "autoload": {
         "psr-0": {
-            "Fox\\CategoryManagerBundle": ""
+            "ONGR\\CategoryManagerBundle": ""
         }
     },
-    "target-dir": "Fox/CategoryManagerBundle"
+    "target-dir": "ONGR/CategoryManagerBundle"
 }

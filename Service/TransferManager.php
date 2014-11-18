@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Service;
+namespace ONGR\CategoryManagerBundle\Service;
 
-use Fox\CategoryManagerBundle\Provider\CategoryProviderInterface;
-use Fox\CategoryManagerBundle\Writer\CategoryWriterInterface;
+use ONGR\CategoryManagerBundle\Provider\CategoryProviderInterface;
+use ONGR\CategoryManagerBundle\Writer\CategoryWriterInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

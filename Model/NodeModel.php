@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Model;
+namespace ONGR\CategoryManagerBundle\Model;
 
-use Fox\DDALBundle\Core\BaseModel;
+use ONGR\DDALBundle\Core\BaseModel;
 
 /**
  * This class provides data structure for node model in ES

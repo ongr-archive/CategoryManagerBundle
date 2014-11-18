@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Service;
+namespace ONGR\CategoryManagerBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Entity\Match;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\CategoryManagerBundle\Entity\Match;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
 
 /**
  * Provides management of category matches
@@ -42,7 +42,7 @@ class MatchManager
     public function __construct(EntityManagerInterface $manager)
     {
         $this->entityManager = $manager;
-        $this->categoryRepo = $manager->getRepository('FoxCategoryManagerBundle:Category');
+        $this->categoryRepo = $manager->getRepository('ONGRCategoryManagerBundle:Category');
     }
 
     /**
@@ -56,8 +56,8 @@ class MatchManager
     public function match($categoryId, $matchId)
     {
         $references = [
-            $categoryId => $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $categoryId),
-            $matchId => $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $matchId),
+            $categoryId => $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $categoryId),
+            $matchId => $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $matchId),
         ];
 
         $matchPath = $this->categoryRepo->getTitlePath($references[$matchId]);
@@ -86,7 +86,7 @@ class MatchManager
      */
     public function getMatches($nodeId, $rootId, $flatten = false)
     {
-        $dql = 'SELECT m FROM FoxCategoryManagerBundle:Match AS m ' .
+        $dql = 'SELECT m FROM ONGRCategoryManagerBundle:Match AS m ' .
             'LEFT JOIN m.category AS c ' .
             'LEFT JOIN m.matchedCategory AS mc ' .
             'WHERE ( m.category = :nodeId AND mc.root = :matchedRootId) ' .
@@ -112,7 +112,7 @@ class MatchManager
      */
     public function removeMatch($categoryId, $matchId)
     {
-        $dql = 'DELETE FoxCategoryManagerBundle:Match AS m ' .
+        $dql = 'DELETE ONGRCategoryManagerBundle:Match AS m ' .
             'WHERE (m.category = :categoryId AND m.matchedCategory = :matchId) ' .
             'OR (m.category = :matchId AND m.matchedCategory = :categoryId)';
 
@@ -143,9 +143,9 @@ class MatchManager
             // Ids are sorted that duplicate matches like a->b|b->a will not be created
             sort($matchId);
             $match = new Match();
-            $match->setCategory($this->entityManager->getReference('FoxCategoryManagerBundle:Category', $matchId[0]));
+            $match->setCategory($this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $matchId[0]));
             $match->setMatchedCategory(
-                $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $matchId[1])
+                $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $matchId[1])
             );
 
             $this->entityManager->persist($match);

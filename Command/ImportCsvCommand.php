@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Command;
+namespace ONGR\CategoryManagerBundle\Command;
 
-use Fox\CategoryManagerBundle\Writer\MySqlCategoryWriter;
-use Fox\CategoryManagerBundle\Service\TransferManager;
+use ONGR\CategoryManagerBundle\Writer\MySqlCategoryWriter;
+use ONGR\CategoryManagerBundle\Service\TransferManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,7 +28,7 @@ class ImportCsvCommand extends ContainerAwareCommand
         parent::configure();
 
         $this
-            ->setName('fox:category-manager:import:csv')
+            ->setName('ongr:category-manager:import:csv')
             ->setDescription('Import categories from CSV file')
             ->addArgument('file', InputArgument::REQUIRED, 'CSV file to import')
             ->addOption(
@@ -57,7 +57,7 @@ class ImportCsvCommand extends ContainerAwareCommand
         ];
 
         /* @var TransferManager $transferManager */
-        $transferManager = $this->getContainer()->get('fox_category_manager.transfer_manager');
+        $transferManager = $this->getContainer()->get('ongr_category_manager.transfer_manager');
         $transferManager->transfer('csv', 'mysql', $providerOptions, $writerOptions, $output);
     }
 }

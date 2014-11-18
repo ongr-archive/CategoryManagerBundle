@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Repository;
+namespace ONGR\CategoryManagerBundle\Repository;
 
-use Fox\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Entity\Category;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**

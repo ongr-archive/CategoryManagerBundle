@@ -1,98 +1,97 @@
 parameters:
-    fox_category_manager.category_manager.class: Fox\CategoryManagerBundle\Service\CategoryManager
-    fox_category_manager.transfer_manager.class: Fox\CategoryManagerBundle\Service\TransferManager
-    fox_category_manager.suggestions_manager.class: Fox\CategoryManagerBundle\Service\SuggestionsManager
-    fox_category_manager.match_manager.class: Fox\CategoryManagerBundle\Service\MatchManager
-    fox_category_manager.category_provider.class: Fox\CategoryManagerBundle\Provider\CategoryProvider
-    fox_category_manager.iterator.csv.class: Fox\CategoryManagerBundle\Iterator\CsvCategoryIterator
-    fox_category_manager.writer.mysql.class: Fox\CategoryManagerBundle\Writer\MySqlCategoryWriter
-    fox_category_manager.listener.category_update.class: Fox\CategoryManagerBundle\EventListener\CategoryUpdateListener
-    fox_category_manager.listener.category_remove.class: Fox\CategoryManagerBundle\EventListener\CategoryRemoveListener
-    fox_category_manager.sync.doctrine.provider.class: Fox\ConnectionsBundle\Doctrine\Provider\Provider
-    fox_category_manager.modifier.node.class: Fox\CategoryManagerBundle\Modifier\NodeModifier
-
+    ongr_category_manager.category_manager.class: ONGR\CategoryManagerBundle\Service\CategoryManager
+    ongr_category_manager.transfer_manager.class: ONGR\CategoryManagerBundle\Service\TransferManager
+    ongr_category_manager.suggestions_manager.class: ONGR\CategoryManagerBundle\Service\SuggestionsManager
+    ongr_category_manager.match_manager.class: ONGR\CategoryManagerBundle\Service\MatchManager
+    ongr_category_manager.category_provider.class: ONGR\CategoryManagerBundle\Provider\CategoryProvider
+    ongr_category_manager.iterator.csv.class: ONGR\CategoryManagerBundle\Iterator\CsvCategoryIterator
+    ongr_category_manager.writer.mysql.class: ONGR\CategoryManagerBundle\Writer\MySqlCategoryWriter
+    ongr_category_manager.listener.category_update.class: ONGR\CategoryManagerBundle\EventListener\CategoryUpdateListener
+    ongr_category_manager.listener.category_remove.class: ONGR\CategoryManagerBundle\EventListener\CategoryRemoveListener
+    ongr_category_manager.sync.doctrine.provider.class: ONGR\ConnectionsBundle\Doctrine\Provider\Provider
+    ongr_category_manager.modifier.node.class: ONGR\CategoryManagerBundle\Modifier\NodeModifier
 services:
-    fox_category_manager.category_manager:
-        class: %fox_category_manager.category_manager.class%
+    ongr_category_manager.category_manager:
+        class: %ongr_category_manager.category_manager.class%
         arguments:
-            - @fox_category_manager.entity_manager
+            - @ongr_category_manager.entity_manager
 
-    fox_category_manager.transfer_manager:
-        class: %fox_category_manager.transfer_manager.class%
+    ongr_category_manager.transfer_manager:
+        class: %ongr_category_manager.transfer_manager.class%
 
-    fox_category_manager.match_manager:
-        class: %fox_category_manager.match_manager.class%
+    ongr_category_manager.match_manager:
+        class: %ongr_category_manager.match_manager.class%
         arguments:
-            - @fox_category_manager.entity_manager
+            - @ongr_category_manager.entity_manager
 
-    fox_category_manager.suggestions_manager:
-        class: %fox_category_manager.suggestions_manager.class%
+    ongr_category_manager.suggestions_manager:
+        class: %ongr_category_manager.suggestions_manager.class%
         arguments:
-            - @fox_ddal.session.category_manager.nodemodel
-            - @fox_category_manager.entity_manager
+            - @ongr_ddal.session.category_manager.nodemodel
+            - @ongr_category_manager.entity_manager
 
-    fox_category_manager.provider.csv:
-        class: %fox_category_manager.category_provider.class%
+    ongr_category_manager.provider.csv:
+        class: %ongr_category_manager.category_provider.class%
         arguments:
-            - %fox_category_manager.iterator.csv.class%
+            - %ongr_category_manager.iterator.csv.class%
         calls:
             - [ setContainer, [@service_container] ]
         tags:
-            - { name: fox_category_manager.provider, id: csv }
+            - { name: ongr_category_manager.provider, id: csv }
 
-    fox_category_manager.writer.mysql:
-        class: %fox_category_manager.writer.mysql.class%
+    ongr_category_manager.writer.mysql:
+        class: %ongr_category_manager.writer.mysql.class%
         arguments:
-            - @fox_category_manager.entity_manager
+            - @ongr_category_manager.entity_manager
         tags:
-            - { name: fox_category_manager.writer, id: mysql}
+            - { name: ongr_category_manager.writer, id: mysql}
 
-    fox_category_manager.listener.category_update:
-        class: %fox_category_manager.listener.category_update.class%
+    ongr_category_manager.listener.category_update:
+        class: %ongr_category_manager.listener.category_update.class%
         tags:
             - { name: doctrine.event_listener, event: prePersist }
 
-    fox_category_manager.listener.category_remove:
-        class: %fox_category_manager.listener.category_remove.class%
+    ongr_category_manager.listener.category_remove:
+        class: %ongr_category_manager.listener.category_remove.class%
         tags:
             - { name: doctrine.event_subscriber }
 
-    fox_category_manager.modifier.node:
-        class: %fox_category_manager.modifier.node.class%
+    ongr_category_manager.modifier.node:
+        class: %ongr_category_manager.modifier.node.class%
         arguments:
-            - @fox_category_manager.entity_manager
+            - @ongr_category_manager.entity_manager
         tags:
-            - { name: fox_connections.doctrine.modifier, type: node }
+            - { name: ongr_connections.doctrine.modifier, type: node }
 
-    fox_category_manager.sync.job_manager:
-        class: %fox_connections.sync.job_manager.class%
+    ongr_category_manager.sync.job_manager:
+        class: %ongr_connections.sync.job_manager.class%
         arguments:
-            - @fox_category_manager.entity_manager
-            - 'FoxConnectionsBundle:'
+            - @ongr_category_manager.entity_manager
+            - 'ONGRConnectionsBundle:'
         calls:
-            - [setLogger, [@fox_sync_jobs_logger]]
+            - [setLogger, [@ongr_sync_jobs_logger]]
 
-    fox_category_manager.sync.data_sync_service:
-        class: %fox_connections.data_sync_service.class%
+    ongr_category_manager.sync.data_sync_service:
+        class: %ongr_connections.data_sync_service.class%
         arguments:
-            - @fox_ddal.session.category_manager
-            - @fox_connections.url_invalidator_service
+            - @ongr_ddal.session.category_manager
+            - @ongr_connections.url_invalidator_service
         calls:
-            - [setLogger, [@fox_sync_jobs_logger]]
-            - [setEnableUpdateApi, [%fox_connections.data_sync_service.enableUpdateApi%]]
-            - [setDataCollector, [@fox_connections.doctrine_data_collector]]
+            - [setLogger, [@ongr_sync_jobs_logger]]
+            - [setEnableUpdateApi, [%ongr_connections.data_sync_service.enableUpdateApi%]]
+            - [setDataCollector, [@ongr_connections.doctrine_data_collector]]
 
-    fox_category_manager.sync.doctrine.provider:
-        class: %fox_category_manager.sync.doctrine.provider.class%
+    ongr_category_manager.sync.doctrine.provider:
+        class: %ongr_category_manager.sync.doctrine.provider.class%
         arguments:
-            - @fox_ddal.session.category_manager.nodemodel
-            - @fox_category_manager.entity_manager
-            - 'FoxCategoryManagerBundle:Category'
+            - @ongr_ddal.session.category_manager.nodemodel
+            - @ongr_category_manager.entity_manager
+            - 'ONGRCategoryManagerBundle:Category'
         tags:
-            - { name: fox_connections.doctrine.provider, type: node }
+            - { name: ongr_connections.doctrine.provider, type: node }
 
-    fox_connections.sync_manager.category_manager:
-        class: %fox_connections.sync.sync_manager.class%
+    ongr_connections.sync_manager.category_manager:
+        class: %ongr_connections.sync.sync_manager.class%
         arguments:
-            - @fox_category_manager.sync.data_sync_service
-            - @fox_category_manager.sync.job_manager
+            - @ongr_category_manager.sync.data_sync_service
+            - @ongr_category_manager.sync.job_manager

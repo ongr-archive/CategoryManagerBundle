@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\DependencyInjection\Compiler;
+namespace ONGR\CategoryManagerBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,16 +24,16 @@ class ProviderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->getDefinition('fox_category_manager.transfer_manager');
+        $definition = $container->getDefinition('ongr_category_manager.transfer_manager');
 
         $taggedServices = $container->findTaggedServiceIds(
-            'fox_category_manager.provider'
+            'ongr_category_manager.provider'
         );
 
         foreach ($taggedServices as $name => $tagAttributes) {
             foreach ($tagAttributes as $attributes) {
                 if (empty($attributes['id'])) {
-                    throw new \LogicException("'fox_category_manager.provider' tag must have an 'id' attribute");
+                    throw new \LogicException("'ongr_category_manager.provider' tag must have an 'id' attribute");
                 }
 
                 $definition->addMethodCall(

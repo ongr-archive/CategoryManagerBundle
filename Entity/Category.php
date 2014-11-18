@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Entity;
+namespace ONGR\CategoryManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Fox\CategoryManagerBundle\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="ONGR\CategoryManagerBundle\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
  */
 class Category
