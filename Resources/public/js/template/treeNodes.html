@@ -1,0 +1,29 @@
+<div ng-click="selectNode(node, $event)">
+    <div ui-tree-handle class="pull-left"><span class="glyphicon glyphicon-list"></span></div>
+    <div class="tree-node-holder clearfix" ng-class="{'active':selectedNode === node}">
+
+        <button class="expand-button btn btn-success btn-xs pull-left" ng-if="hasChildren(node)" ng-click="toggleNode(this, $event)" data-nodrag>
+            <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+        </button>
+
+        <div class="pull-left" inline node="node"></div>
+
+        <div class="pull-right" data-nodrag>
+            <button class="btn btn-warning btn-xs" ng-if="canMatch(node)" ng-click="matchService.match(node); $event.stopPropagation();">
+                <span class="glyphicon glyphicon glyphicon-resize-small"></span>
+            </button>
+            <button class="btn btn-primary btn-xs" ng-click="editModal(node); $event.stopPropagation();">
+                <span class="glyphicon glyphicon-edit"></span>
+            </button>
+            <button class="btn btn-success btn-xs" ng-click="addChild(node); $event.stopPropagation();">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            <button class="btn btn-danger btn-xs" really-message="Are you sure?" really-click="removeCategory(node, this)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </div>
+    </div>
+</div>
+<ol ui-tree-nodes="" ng-model="node.__children" ng-if="!collapsed">
+    <li ng-repeat="node in node.__children" ui-tree-node ng-include="treeTemplate" collapsed="shouldCollapse(this)"></li>
+</ol>

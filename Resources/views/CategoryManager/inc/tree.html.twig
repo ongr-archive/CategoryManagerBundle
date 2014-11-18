@@ -1,0 +1,48 @@
+<div class="form-group">
+    <select class="form-control"
+            ng-model="rootNodeId"
+            ng-options="id as node.title for (id, node) in rootNodes"
+            ng-change="fetchTree(true, null)">
+    </select>
+</div>
+
+<div class="clearfix">
+    <div class="form-group pull-left">
+        <button ng-click="createRoot()" class="btn btn-primary">Add Root</button>
+    </div>
+
+    <div class="form-group pull-right">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="listType" ng-true-value="plain" ng-false-value="tree" ng-change="changeListType()"> List mode
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group pull-right filtered-mode-switch" ng-class="{hidden: listType == 'tree'}">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="filteredMode" ng-change="fetchPlainTree(false)"> Filtered list
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="nodes-list-holder" ng-switch on="listType">
+    <div ng-switch-when="tree"  ui-tree="treeOptions" data-empty-place-holder-enabled="false">
+        <ol ui-tree-nodes="" ng-model="categoryTree" data-nodrop>
+            <li ng-repeat="node in categoryTree" ui-tree-node ng-include="treeTemplate" collapsed="false"></li>
+        </ol>
+    </div>
+
+    <div ng-switch-when="plain"
+         infinite-scroll="fetchPlainTree(true)"
+         infinite-scroll-distance="1"
+         infinite-scroll-parent="true"
+         infinite-scroll-disabled="nodesLoading"
+         infinite-scroll-immediate-check="false">
+        <ol class="nodes-list">
+            <li ng-repeat="node in categoryTree" ng-include="plainTreeTemplate"></li>
+        </ol>
+    </div>
+</div>

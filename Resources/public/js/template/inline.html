@@ -1,0 +1,9 @@
+<a href="#" ng-click="edit($event)" ng-bind="node.title"></a>
+<div class="input-group input-group-sm">
+    <span class="input-group-btn">
+        <button ng-click="save($event)" class="btn btn-default">Save</button>
+        <button ng-click="close($event)" class="btn btn-default">Close</button>
+    </span>
+    <input type="text" ng-click="$event.stopPropagation()" class="form-control" ng-model="node.title" ng-keydown="keyPress($event)"/>
+</div>
+

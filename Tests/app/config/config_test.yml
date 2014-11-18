@@ -1,0 +1,65 @@
+imports:
+    - { resource: parameters_test.yml }
+
+# Framework Configuration
+framework:
+    esi:             ~
+    fragments:       { path: /_proxy }
+    translator:      { fallback: "%locale%" }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: 201204261
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    test: ~
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+        mapping_types:
+            enum: string
+            set: string
+            varbinary: string
+            tinyblob: text
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: false
+        mappings:
+            gedmo_tree:
+                type: annotation
+                prefix: Gedmo\Tree\Entity
+                dir: "%kernel.root_dir%/../../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                alias: GedmoTree # this one is optional and will default to the name set for the mapping
+                is_bundle: false
+            Bundle:
+                type: annotation
+                dir: %kernel.root_dir%/../../Entity
+                alias: FoxCategoryManagerBundle
+                prefix: Fox\CategoryManagerBundle\Entity
+                is_bundle: false
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            tree: true
+
+fox_category_manager:
+    connection:
+        index_name: category_manager_test

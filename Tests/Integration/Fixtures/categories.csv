@@ -1,0 +1,4 @@
+id,title,parent,weight
+123,"Test Category",,1
+456,"Second",,
+233,Child,123,3

@@ -1,0 +1,12 @@
+<div ng-click="selectNode(node)">
+    <div class="tree-node-holder clearfix" ng-class="{'active':selectedNode === node}">
+
+        <div class="pull-left">{{ node.path }}</div>
+
+        <div class="pull-right" data-nodrag>
+            <button class="btn btn-warning btn-xs" ng-if="canMatch(node)" ng-click="matchService.match(node); $event.stopPropagation();">
+                <span class="glyphicon glyphicon glyphicon-resize-small"></span>
+            </button>
+        </div>
+    </div>
+</div>

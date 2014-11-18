@@ -1,0 +1,3 @@
+parameters:
+    fox_category_manager.fox_ddal.model_map:
+        NodeModel.class: Fox\CategoryManagerBundle\Model\NodeModel

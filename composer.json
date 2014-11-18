@@ -1,0 +1,37 @@
+{
+    "name": "nfq-extremes/fox-category-manager",
+    "description": "FOXX Category Manager",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "FOXX team",
+            "homepage": "http://www.nfq.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packagist.fox.nfq.lt"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": "~2.3",
+        "doctrine/orm": "~2.4",
+        "doctrine/doctrine-bundle": "~1.2",
+        "stof/doctrine-extensions-bundle": "~1.1",
+        "nfq-extremes/fox-ddal": "~2.3",
+        "nfq-extremes/fox-connections": "~2.3",
+        "friendsofsymfony/jsrouting-bundle": "~1.5"
+    },
+    "require-dev": {
+        "nfq-extremes/fox-qa": "1.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Fox\\CategoryManagerBundle": ""
+        }
+    },
+    "target-dir": "Fox/CategoryManagerBundle"
+}

@@ -1,0 +1,71 @@
+fox_category_manager_home:
+    pattern: /
+    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:list }
+
+fox_category_manager_list:
+    pattern: /list
+    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:list }
+
+fox_category_manager_save:
+    pattern: /save/{categoryId}
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:save }
+    requirements:
+        categoryId:  '[^/]*'
+    options:
+        expose: true
+
+fox_category_manager_remove:
+    pattern: /remove/{categoryId}
+    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:remove }
+    options:
+        expose: true
+
+fox_category_manager_plain_tree:
+    pattern: /tree/plain
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:plainTree }
+    options:
+        expose: true
+
+fox_category_manager_tree:
+    pattern: /tree
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:tree }
+    options:
+        expose: true
+
+fox_category_manager_move:
+    pattern: /move
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:CategoryManager:move}
+    options:
+        expose: true
+
+fox_category_manager_matches:
+    pattern: /matches
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:MatchManager:matches}
+    options:
+        expose: true
+
+fox_category_manager_match:
+    pattern: /match
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:MatchManager:match}
+    options:
+        expose: true
+
+fox_category_manager_remove_match:
+    pattern: /remove-match
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:MatchManager:removeMatch}
+    options:
+        expose: true
+
+fox_category_manager_suggestions:
+    pattern: /suggestions
+    methods: [POST]
+    defaults: { _controller: FoxCategoryManagerBundle:Suggestions:list}
+    options:
+        expose: true

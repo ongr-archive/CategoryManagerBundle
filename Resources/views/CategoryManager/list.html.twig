@@ -1,0 +1,84 @@
+{% extends 'FoxCategoryManagerBundle::layout.html.twig' %}
+
+{% block body_attributes %}ng-app="fox.category-manager"{% endblock %}
+
+{% block main %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6" ng-controller="list" ng-init="init('master', '.nodes-list-holder')">
+                {% include 'FoxCategoryManagerBundle:CategoryManager:inc/tree.html.twig' %}
+            </div>
+            <div class="col-lg-6" ng-controller="list" ng-init="init('slave', '.nodes-list-holder')">
+                {% include 'FoxCategoryManagerBundle:CategoryManager:inc/tree.html.twig' %}
+            </div>
+        </div>
+        <div class="row" ng-controller="suggestions" ng-init="init()">
+            {% verbatim %}
+                <div class="col-lg-12">
+                    <h3>Suggestions</h3>
+                    <table class="table table-condensed table-striped suggestions">
+                        <tr>
+                            <th>Path</th>
+                            <th class="text-right">Actions</th>
+                        </tr>
+                        <tr ng-repeat="suggestion in suggestions" ng-class="{hidden: !canMatch(suggestion)}">
+                            <td>{{ suggestion.path }}</td>
+                            <td class="text-right">
+                                <button class="btn btn-warning btn-xs" ng-click="matchService.match(suggestion)">
+                                    <span class="glyphicon glyphicon-resize-small"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            {% endverbatim %}
+        </div>
+
+        <div class="row" ng-controller="matchManager" ng-init="init()">
+            {% verbatim %}
+            <div class="col-lg-12">
+                <h3>Matches</h3>
+                <table class="table table-condensed table-striped suggestions">
+                    <tr>
+                        <th>Path</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                    <tr ng-repeat="match in matches">
+                        <td>{{ match.path }}</td>
+                        <td class="text-right">
+                            <button class="btn btn-danger btn-xs"
+                                    really-message="Are you sure?"
+                                    really-click="matchService.removeMatch(match)">
+                                <span class="glyphicon glyphicon-resize-full"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            {% endverbatim %}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block manager_javascripts %}
+    <script type="text/javascript">
+        var categoriesData = {{ categories_data|json_encode|raw }};
+    </script>
+
+    <script src="{{ asset('bundles/foxcategorymanager/js/ng-infinite-scroll.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/angular-ui-tree.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/utils/Asset.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/directive/InlineDirective.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/directive/ReallyClickDirective.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/service/CategoryService.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/service/MatchService.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/service/SuggestionsService.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/controller/ListController.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/controller/SuggestionsController.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/controller/MatchManagerController.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/controller/modal/EditController.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/controller/modal/AddChildController.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/controller/modal/AddRootController.js') }}"></script>
+    <script src="{{ asset('bundles/foxcategorymanager/js/app-category-manager.js') }}"></script>
+{% endblock %}
