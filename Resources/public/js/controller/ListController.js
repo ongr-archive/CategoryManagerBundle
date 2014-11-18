@@ -1,14 +1,9 @@
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
 angular
@@ -229,7 +224,7 @@ angular
                     var parentId = event.dest.nodesScope.node.id;
                     var index = event.dest.index;
 
-                    $http({method: "POST", url: Routing.generate('fox_category_manager_move'), data: {
+                    $http({method: "POST", url: Routing.generate('ongr_category_manager_move'), data: {
                         node: nodeId,
                         parent: parentId,
                         index: index
@@ -282,7 +277,7 @@ angular
 
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_tree'),
+                    url: Routing.generate('ongr_category_manager_tree'),
                     data: { parentId: loadId }
                 }).success(function(data, status) {
                     if (parentNode) {
@@ -341,7 +336,7 @@ angular
 
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_plain_tree'),
+                    url: Routing.generate('ongr_category_manager_plain_tree'),
                     data: {
                         parentId: $scope.rootNodeId,
                         matchRootId: matchRootId,
@@ -390,7 +385,7 @@ angular
                 $http({
                     method: "DELETE",
                     url: Routing.generate(
-                        'fox_category_manager_remove',
+                        'ongr_category_manager_remove',
                         {
                             'categoryId': node.id
                         }

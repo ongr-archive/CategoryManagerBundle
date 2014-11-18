@@ -1,14 +1,9 @@
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
 angular
@@ -95,7 +90,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_matches'),
+                    url: Routing.generate('ongr_category_manager_matches'),
                     data: { nodeId: this.node.id, rootId:  this.rootId}
                 }).success(function(data, status) {
                     for (key in instance.matches) {
@@ -165,7 +160,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_match'),
+                    url: Routing.generate('ongr_category_manager_match'),
                     data: { categoryId: this.node.id, matchId:  node.id }
                 }).success(function(data, status) {
                     instance.matches[node.id] = {id: node.id, path: data.path};
@@ -192,7 +187,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_remove_match'),
+                    url: Routing.generate('ongr_category_manager_remove_match'),
                     data: { categoryId: this.node.id, matchId:  node.id }
                 }).success(function(data, status) {
                     delete instance.matches[node.id];

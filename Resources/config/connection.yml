@@ -1,5 +1,5 @@
 parameters:
-    fox_category_manager.connection.mapping:
+    ongr_category_manager.connection.mapping:
         node:
             mapping:
                 properties:
@@ -15,7 +15,7 @@ parameters:
                         index_analyzer: default
                         search_analyzer: default
 
-    fox_category_manager.node_model_connection.settings:
+    ongr_category_manager.node_model_connection.settings:
         index:
             number_of_replicas: 1
             number_of_shards: 1
@@ -26,22 +26,21 @@ parameters:
                     type: snowball
                     language: German2
                     stopwords: "der,die,das,mit,und,für"
-
 services:
-    fox_category_manager.elastic_search_driver:
-        class: Fox\DDALBundle\ElasticSearch\ElasticSearchDriver
+    ongr_category_manager.elastic_search_driver:
+        class: ONGR\DDALBundle\ElasticSearch\ElasticSearchDriver
         arguments:
             - { host: %database.elastic_search.host%, port: %database.elastic_search.port%, throwCustomExceptions: 1}
             -
-              index: %fox_category_manager.connection.index_name%
-              host: %fox_category_manager.connection.host%
-              port: %fox_category_manager.connection.port%
-              map: %fox_category_manager.connection.mapping%
-              settings: %fox_category_manager.node_model_connection.settings%
+              index: %ongr_category_manager.connection.index_name%
+              host: %ongr_category_manager.connection.host%
+              port: %ongr_category_manager.connection.port%
+              map: %ongr_category_manager.connection.mapping%
+              settings: %ongr_category_manager.node_model_connection.settings%
               dynamicSettings: %database.elastic_search.dynamic_settings%
               scroll_settings: %database.elastic_search.scroll_settings%
         tags:
-            - { name: fox_ddal.driver, driver: category_manager }
+            - { name: ongr_ddal.driver, driver: category_manager }
         calls:
             - [setDisableFlushCall, [1]]
             - [setRefreshOnFlush, [1]]

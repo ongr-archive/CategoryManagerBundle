@@ -1,22 +1,17 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Controller;
+namespace ONGR\CategoryManagerBundle\Controller;
 
-use Fox\CategoryManagerBundle\Entity\Category;
-use Fox\CategoryManagerBundle\Service\CategoryManager;
+use ONGR\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Service\CategoryManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +44,7 @@ class CategoryManagerController extends Controller
     public function listAction()
     {
         return $this->render(
-            "FoxCategoryManagerBundle:CategoryManager:list.html.twig",
+            "ONGRCategoryManagerBundle:CategoryManager:list.html.twig",
             $this->getListActionData()
         );
     }
@@ -225,6 +220,6 @@ class CategoryManagerController extends Controller
      */
     protected function getCategoryManager()
     {
-        return $this->get('fox_category_manager.category_manager');
+        return $this->get('ongr_category_manager.category_manager');
     }
 }

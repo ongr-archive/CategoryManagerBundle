@@ -1,22 +1,17 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\EventListener;
+namespace ONGR\CategoryManagerBundle\EventListener;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Fox\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Entity\Category;
 
 /**
  * Event listener for doctrine prePersist event, used for assigning id to entity if non is available
