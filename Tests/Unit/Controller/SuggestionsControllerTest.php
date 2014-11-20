@@ -12,7 +12,7 @@ namespace ONGR\CategoryManagerBundle\Tests\Unit\Controller;
 
 use ONGR\CategoryManagerBundle\Controller\SuggestionsController;
 use ONGR\CategoryManagerBundle\Service\SuggestionsManager;
-use ONGR\CategoryManagerBundle\Tests\Integration\Iterator\DummyIterator;
+use ONGR\CategoryManagerBundle\Tests\Functional\Iterator\DummyIterator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

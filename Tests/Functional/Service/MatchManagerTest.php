@@ -259,7 +259,7 @@ class MatchManagerTest extends BaseDatabaseTest
     {
         $em = $this->getEntityManager();
 
-        $iterator = new \SplFileObject('Tests/Integration/Fixtures/matches.csv');
+        $iterator = new \SplFileObject('Tests/Functional/Fixtures/matches.csv');
         $iterator->setFlags(
             \SplFileObject::READ_CSV |
             \SplFileObject::READ_AHEAD |

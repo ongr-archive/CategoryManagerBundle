@@ -27,7 +27,7 @@ class CategoryProviderTest extends \PHPUnit_Framework_TestCase
         $container
             ->set('ongr_category_manager.entity_manager', $this->getMock('Doctrine\\ORM\\EntityManagerInterface'));
 
-        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Functional\\Provider\\DummyProvider');
+        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Unit\\Provider\\DummyProvider');
         $provider->setContainer($container);
         $result = $provider->getCategories();
 
@@ -42,7 +42,7 @@ class CategoryProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCategoriesContainerException()
     {
-        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Functional\\Provider\\DummyProvider');
+        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Unit\\Provider\\DummyProvider');
         $result = $provider->getCategories();
 
         $this->assertInstanceOf('ONGR\\CategoryManagerBundle\\Iterator\\CategoryIteratorInterface', $result);

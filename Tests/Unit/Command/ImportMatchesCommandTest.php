@@ -29,21 +29,21 @@ class ImportMatchesCommandTest extends \PHPUnit_Framework_TestCase
 
         // Case #0 full option list.
         $out[] = [
-            ['file' => 'Tests/Integration/Fixtures/matches.csv', '--flush-count' => '10', '--headless' => true],
+            ['file' => 'Tests/Functional/Fixtures/matches.csv', '--flush-count' => '10', '--headless' => true],
             0,
             10,
         ];
 
         // Case #1 default flush count.
         $out[] = [
-            ['file' => 'Tests/Integration/Fixtures/matches.csv', '--headless' => true],
+            ['file' => 'Tests/Functional/Fixtures/matches.csv', '--headless' => true],
             0,
             MatchManager::MULTI_MATCH_FLUSH_COUNT,
         ];
 
         // Case #2 all default options.
         $out[] = [
-            ['file' => 'Tests/Integration/Fixtures/matches.csv'],
+            ['file' => 'Tests/Functional/Fixtures/matches.csv'],
             1,
             MatchManager::MULTI_MATCH_FLUSH_COUNT,
         ];

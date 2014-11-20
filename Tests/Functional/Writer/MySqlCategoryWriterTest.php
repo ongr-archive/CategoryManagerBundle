@@ -97,7 +97,7 @@ class MySqlCategoryWriterTest extends BaseDatabaseTest
     {
         $em = $this->getEntityManager();
 
-        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Integration\\Iterator\\DummyIterator');
+        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Functional\\Iterator\\DummyIterator');
 
         $container = $this->getContainer();
 
@@ -142,7 +142,7 @@ class MySqlCategoryWriterTest extends BaseDatabaseTest
         $cat1 = new Category();
         $cat1->setTitle('Tet category 1')->setId('test_cat_1');
 
-        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Integration\\Iterator\\DummyIterator');
+        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Functional\\Iterator\\DummyIterator');
 
         $container = $this->getContainer();
 
@@ -168,7 +168,7 @@ class MySqlCategoryWriterTest extends BaseDatabaseTest
      */
     public function testMysqlWriterInvalidCustomRoot()
     {
-        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Integration\\Iterator\\DummyIterator');
+        $provider = new CategoryProvider('ONGR\\CategoryManagerBundle\\Tests\\Functional\\Iterator\\DummyIterator');
 
         $container = $this->getContainer();
 

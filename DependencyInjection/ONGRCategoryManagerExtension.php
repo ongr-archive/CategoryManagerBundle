@@ -30,7 +30,6 @@ class ONGRCategoryManagerExtension extends Extension
 
         // Set connection settings.
         $container->setParameter('ongr_category_manager.connection.index_name', $config['connection']['index_name']);
-        $container->setParameter('ongr_category_manager.connection.port', $config['connection']['port']);
         $container->setParameter('ongr_category_manager.connection.host', $config['connection']['host']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));

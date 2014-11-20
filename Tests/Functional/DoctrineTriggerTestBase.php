@@ -84,7 +84,7 @@ abstract class DoctrineTriggerTestBase extends WebTestCase
      */
     public function importData($file)
     {
-        $this->executeSqlFile($this->getConnection(), 'Tests/Integration/Fixtures/' . $file);
+        $this->executeSqlFile($this->getConnection(), 'Tests/Functional/Fixtures/' . $file);
     }
 
     /**
