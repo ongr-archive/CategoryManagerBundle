@@ -1,27 +1,25 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Writer;
+namespace ONGR\CategoryManagerBundle\Writer;
 
 use Doctrine\ORM\EntityManager;
-use Fox\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
-use Fox\CategoryManagerBundle\Entity\Category;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\CategoryManagerBundle\Iterator\CategoryIteratorInterface;
+use ONGR\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
 use Symfony\Component\Console\Helper\ProgressHelper;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class MySqlCategoryWriter - implements CategoryWriterInterface.
+ */
 class MySqlCategoryWriter implements CategoryWriterInterface
 {
     /**
@@ -60,7 +58,7 @@ class MySqlCategoryWriter implements CategoryWriterInterface
     protected $progress;
 
     /**
-     * Constructor for DI
+     * Constructor for DI.
      *
      * @param EntityManager $entityManager
      */
@@ -68,7 +66,7 @@ class MySqlCategoryWriter implements CategoryWriterInterface
     {
         $this->entityManager = $entityManager;
 
-        $this->repository = $entityManager->getRepository('FoxCategoryManagerBundle:Category');
+        $this->repository = $entityManager->getRepository('ONGRCategoryManagerBundle:Category');
 
         $this->progress = new ProgressHelper();
     }
@@ -124,7 +122,7 @@ class MySqlCategoryWriter implements CategoryWriterInterface
     }
 
     /**
-     * Persist category or add it to delayed list
+     * Persist category or add it to delayed list.
      *
      * @param Category $category
      * @param Category $rootNode
@@ -138,12 +136,13 @@ class MySqlCategoryWriter implements CategoryWriterInterface
         if ($parent) {
             if (!in_array($parent->getId(), $this->savedIds)) {
                 $this->delayed[$parent->getId()][] = $category;
+
                 return true;
             }
 
-            // Recreate reference as entity manager could be cleared at this moment
+            // Recreate reference as entity manager could be cleared at this moment.
             $category->setParent(
-                $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $parent->getId())
+                $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $parent->getId())
             );
 
             $this->repository->persistAsLastChild($category);
@@ -156,13 +155,15 @@ class MySqlCategoryWriter implements CategoryWriterInterface
         $this->output && $this->progress->advance();
 
         $this->savedIds[] = $category->getId();
+
         return false;
     }
 
     /**
-     * Persist and reconnect delayed nodes as a parent is now available
+     * Persist and reconnect delayed nodes as a parent is now available.
      *
      * @param Category $category
+     *
      * @return int
      */
     protected function persistDelayedChildren(Category $category)
@@ -193,7 +194,7 @@ class MySqlCategoryWriter implements CategoryWriterInterface
     }
 
     /**
-     * Writes test to output interface if available
+     * Writes test to output interface if available.
      *
      * @param string $text
      */

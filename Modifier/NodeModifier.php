@@ -1,30 +1,25 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Modifier;
+namespace ONGR\CategoryManagerBundle\Modifier;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Entity\Category;
-use Fox\CategoryManagerBundle\Model\NodeModel;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
-use Fox\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use Fox\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use Fox\DDALBundle\Core\BaseModel;
+use ONGR\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Model\NodeModel;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
+use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
+use ONGR\ElasticsearchBundle\Document\DocumentInterface;
 
 /**
- * Modifier for converting category entity to node document
+ * Modifier for converting category entity to node document.
  */
 class NodeModifier implements ModifierInterface
 {
@@ -39,23 +34,24 @@ class NodeModifier implements ModifierInterface
     protected $repository;
 
     /**
-     * Constructor for DI
+     * Constructor for DI.
      *
      * @param EntityManagerInterface $manager
      */
     public function __construct(EntityManagerInterface $manager)
     {
         $this->entityManager = $manager;
-        $this->repository = $manager->getRepository('FoxCategoryManagerBundle:Category');
+        $this->repository = $manager->getRepository('ONGRCategoryManagerBundle:Category');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function modify(BaseModel $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
     {
         /* @var NodeModel $document */
-        /* @var Category $entity */
+
+        /* @var Category  $entity */
 
         $document->id = $entity->getId();
         $document->rootId = $entity->getRoot();

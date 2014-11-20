@@ -1,26 +1,21 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\DependencyInjection\Compiler;
+namespace ONGR\CategoryManagerBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Compiler pass to manage tagged writers
+ * Compiler pass to manage tagged writers.
  */
 class WriterCompilerPass implements CompilerPassInterface
 {
@@ -29,16 +24,16 @@ class WriterCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->getDefinition('fox_category_manager.transfer_manager');
+        $definition = $container->getDefinition('ongr_category_manager.transfer_manager');
 
         $taggedServices = $container->findTaggedServiceIds(
-            'fox_category_manager.writer'
+            'ongr_category_manager.writer'
         );
 
         foreach ($taggedServices as $name => $tagAttributes) {
             foreach ($tagAttributes as $attributes) {
                 if (empty($attributes['id'])) {
-                    throw new \LogicException("'fox_category_manager.writer' tag must have an 'id' attribute");
+                    throw new \LogicException("'ongr_category_manager.writer' tag must have an 'id' attribute");
                 }
 
                 $definition->addMethodCall(

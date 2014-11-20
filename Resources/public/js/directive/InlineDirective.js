@@ -58,7 +58,7 @@ angular
                     event.stopPropagation();
                     element.removeClass('active');
 
-                    requestUrl = Routing.generate('fox_category_manager_save',
+                    requestUrl = Routing.generate('ongr_category_manager_save',
                         { categoryId: $scope.node.id }
                     );
 

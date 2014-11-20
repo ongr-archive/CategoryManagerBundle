@@ -1,24 +1,19 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE: 
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Entity;
+namespace ONGR\CategoryManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Entity for matched categories record
+ * Entity for matched categories record.
  *
  * @ORM\Entity()
  * @ORM\Table(name="category_matches")
@@ -45,8 +40,8 @@ class Match
      */
     private $matchedCategory;
 
-    /**             
-     * Sets category
+    /**
+     * Sets category.
      * 
      * @param Category $category
      * 
@@ -55,12 +50,12 @@ class Match
     public function setCategory(Category $category)
     {
         $this->category = $category;
-        
+
         return $this;
     }
 
     /**
-     * Returns category
+     * Returns category.
      *
      * @return Category
      */
@@ -70,7 +65,7 @@ class Match
     }
 
     /**
-     * Sets matched category
+     * Sets matched category.
      *
      * @param Category $category
      *
@@ -84,7 +79,7 @@ class Match
     }
 
     /**
-     * Returns matched category
+     * Returns matched category.
      *
      * @return Category
      */

@@ -1,34 +1,29 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Controller;
+namespace ONGR\CategoryManagerBundle\Controller;
 
-use Fox\CategoryManagerBundle\Entity\Category;
-use Fox\CategoryManagerBundle\Service\CategoryManager;
+use ONGR\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Service\CategoryManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Controller for category manager pages
+ * Controller for category manager pages.
  */
 class CategoryManagerController extends Controller
 {
     /**
-     * Returns template data for listAction
+     * Returns template data for listAction.
      *
      * @return array
      */
@@ -40,25 +35,25 @@ class CategoryManagerController extends Controller
             ],
         ];
     }
-    
+
     /**
-     * Categories list page
+     * Categories list page.
      *
      * @return Response
      */
     public function listAction()
     {
         return $this->render(
-            "FoxCategoryManagerBundle:CategoryManager:list.html.twig",
+            'ONGRCategoryManagerBundle:CategoryManager:list.html.twig',
             $this->getListActionData()
         );
     }
 
     /**
-     * Category save action
+     * Category save action.
      *
      * @param Request $request
-     * @param string $categoryId
+     * @param string  $categoryId
      *
      * @return Response
      */
@@ -86,7 +81,7 @@ class CategoryManagerController extends Controller
     }
 
     /**
-     * Removes category by ID
+     * Removes category by ID.
      *
      * @param string $categoryId
      *
@@ -104,7 +99,7 @@ class CategoryManagerController extends Controller
     }
 
     /**
-     * Data provider for treeAction()
+     * Data provider for treeAction().
      *
      * @param string|null $parentId
      *
@@ -113,12 +108,12 @@ class CategoryManagerController extends Controller
     protected function getTreeActionData($parentId)
     {
         return [
-            'nodes' => $this->getCategoryManager()->getCategoryTree($parentId)
+            'nodes' => $this->getCategoryManager()->getCategoryTree($parentId),
         ];
     }
 
     /**
-     * Return json response with tree nodes
+     * Return json response with tree nodes.
      *
      * @param Request $request
      *
@@ -137,12 +132,12 @@ class CategoryManagerController extends Controller
     }
 
     /**
-     * Data provider for plainTreeAction()
+     * Data provider for plainTreeAction().
      *
-     * @param string $parentId
+     * @param string      $parentId
      * @param string|null $matchRootId
-     * @param int $size
-     * @param int $from
+     * @param int         $size
+     * @param int         $from
      *
      * @return array
      */
@@ -154,7 +149,7 @@ class CategoryManagerController extends Controller
     }
 
     /**
-     * Returns json response with plain list of categories
+     * Returns json response with plain list of categories.
      *
      * @param Request $request
      *
@@ -175,9 +170,10 @@ class CategoryManagerController extends Controller
     }
 
     /**
-     * Handle category node placement in a tree
+     * Handle category node placement in a tree.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function moveAction(Request $request)
@@ -188,12 +184,15 @@ class CategoryManagerController extends Controller
         }
 
         $this->getCategoryManager()->moveCategory($content['node'], $content['parent'], $content['index']);
+
         return new Response();
     }
 
     /**
+     * Parses ajax request.
+     *
      * @param Request $request
-     * @param array $fields
+     * @param array   $fields
      *
      * @return array|false
      */
@@ -219,12 +218,12 @@ class CategoryManagerController extends Controller
     }
 
     /**
-     * Returns category manager
+     * Returns category manager.
      *
      * @return CategoryManager
      */
     protected function getCategoryManager()
     {
-        return $this->get('fox_category_manager.category_manager');
+        return $this->get('ongr_category_manager.category_manager');
     }
 }

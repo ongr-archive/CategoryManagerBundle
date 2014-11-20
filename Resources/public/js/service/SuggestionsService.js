@@ -124,7 +124,7 @@ angular
 
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_suggestions'),
+                    url: Routing.generate('ongr_category_manager_suggestions'),
                     data: { nodeId: this.node.id, rootId:  this.rootId}
                 }).success(function(data, status) {
                     // Cant loose pointer reference here

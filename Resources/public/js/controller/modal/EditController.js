@@ -49,7 +49,7 @@ angular
              */
             $scope.save = function () {
                 var url = Routing.generate(
-                    'fox_category_manager_save',
+                    'ongr_category_manager_save',
                     { categoryId: $scope.node.id }
                 );
                 $http({method:"POST", url: url, data: {title: $scope.node.title}}).

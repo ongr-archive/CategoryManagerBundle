@@ -13,21 +13,21 @@
  *************************************************************************
  */
 
-namespace Fox\CategoryManagerBundle\Repository;
+namespace ONGR\CategoryManagerBundle\Repository;
 
-use Fox\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Entity\Category;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
- * Repository class for Category entity
+ * Repository class for Category entity.
  */
 class CategoryRepository extends NestedTreeRepository
 {
     /**
-     * Returns category path as a string separated by provided delimiter
+     * Returns category path as a string separated by provided delimiter.
      *
      * @param Category $category
-     * @param string $delimiter
+     * @param string   $delimiter
      *
      * @return string
      */

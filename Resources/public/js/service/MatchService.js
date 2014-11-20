@@ -95,7 +95,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_matches'),
+                    url: Routing.generate('ongr_category_manager_matches'),
                     data: { nodeId: this.node.id, rootId:  this.rootId}
                 }).success(function(data, status) {
                     for (key in instance.matches) {
@@ -165,7 +165,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_match'),
+                    url: Routing.generate(ongr_category_managerr_match'),
                     data: { categoryId: this.node.id, matchId:  node.id }
                 }).success(function(data, status) {
                     instance.matches[node.id] = {id: node.id, path: data.path};
@@ -192,7 +192,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generate('fox_category_manager_remove_match'),
+                    url: Routing.generateongr_category_managerer_remove_match'),
                     data: { categoryId: this.node.id, matchId:  node.id }
                 }).success(function(data, status) {
                     delete instance.matches[node.id];

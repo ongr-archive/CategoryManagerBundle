@@ -1,26 +1,23 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Entity;
+namespace ONGR\CategoryManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * Category.
+ *
  * @Gedmo\Tree(type="nested")
- * @ORM\Entity(repositoryClass="Fox\CategoryManagerBundle\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="ONGR\CategoryManagerBundle\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
  */
 class Category
@@ -41,24 +38,32 @@ class Category
     private $title;
 
     /**
+     * @var int
+     *
      * @Gedmo\TreeLeft
      * @ORM\Column(name="`left`", type="integer")
      */
     private $left;
 
     /**
+     * @var int
+     *
      * @Gedmo\TreeLevel
      * @ORM\Column(name="level", type="integer")
      */
     private $level;
 
     /**
+     * @var int
+     *
      * @Gedmo\TreeRight
      * @ORM\Column(name="`right`", type="integer")
      */
     private $right;
 
     /**
+     * @var int
+     *
      * @Gedmo\TreeRoot
      * @ORM\Column(name="root", type="string", length=32, nullable=true)
      */
@@ -74,18 +79,22 @@ class Category
     private $parent;
 
     /**
+     * @var string?
+     *
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      * @ORM\OrderBy({"left" = "ASC"})
      */
     private $children;
 
     /**
+     * @var float
+     *
      * @Orm\Column(name="weight", type="float")
      */
     private $weight = 0;
 
     /**
-     * Sets category ID
+     * Sets category ID.
      *
      * @param string $id
      *
@@ -99,7 +108,7 @@ class Category
     }
 
     /**
-     * Returns category ID
+     * Returns category ID.
      *
      * @return string
      */
@@ -109,7 +118,7 @@ class Category
     }
 
     /**
-     * Sets category title
+     * Sets category title.
      *
      * @param string $title
      *
@@ -123,7 +132,7 @@ class Category
     }
 
     /**
-     * Returns category title
+     * Returns category title.
      *
      * @return string
      */
@@ -133,7 +142,7 @@ class Category
     }
 
     /**
-     * Sets parent
+     * Sets parent.
      *
      * @param Category $parent
      *
@@ -147,7 +156,7 @@ class Category
     }
 
     /**
-     * Returns parent
+     * Returns parent.
      *
      * @return Category
      */
@@ -157,7 +166,7 @@ class Category
     }
 
     /**
-     * Returns category root id
+     * Returns category root id.
      *
      * @return string
      */
@@ -167,7 +176,7 @@ class Category
     }
 
     /**
-     * Returns category weight
+     * Returns category weight.
      *
      * @return float
      */
@@ -177,7 +186,7 @@ class Category
     }
 
     /**
-     * Sets category weight
+     * Sets category weight.
      *
      * @param float $weight
      *
