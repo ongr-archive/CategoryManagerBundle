@@ -70,7 +70,7 @@ class SuggestionsManager
         $search = new Search();
 
         if ($rootId) {
-            $search->addFilter(new Query\MatchQuery($rootId, 'rootId'));
+            $search->addQuery(new Query\MatchQuery($rootId, 'rootId'));
         }
 
         $search->addQuery(new Query\FuzzyQuery('path', $path));
@@ -80,9 +80,11 @@ class SuggestionsManager
         if ($sort) {
             $sorting = new Sort\Sort('weight');
             $sorting->setOrder(Sort\Sort::ORDER_DESC);
+            $sorting->setMode('min');
             $search->addSort($sorting);
         }
-        $elasticRepository = $this->elasticManager->getRepository('ONGRCategoryManagerBundle:Category');
+
+        $elasticRepository = $this->elasticManager->getRepository('ONGRCategoryManagerBundle:Node');
 
         $result = $elasticRepository->execute($search, Repository::RESULTS_OBJECT);
 

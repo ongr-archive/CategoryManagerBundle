@@ -64,6 +64,7 @@ ongr_category_manager:
     connection:
         index_name: category_manager_test
 
+
 ongr_elasticsearch:
     connections:
         default:
@@ -76,6 +77,4 @@ ongr_elasticsearch:
     managers:
         default:
             connection: default
-            mappings:
-                - ONGRTestingBundle
-
+            mappings: %ongr_category_manager.connection.mapping%

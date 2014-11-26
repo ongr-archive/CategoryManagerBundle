@@ -42,6 +42,11 @@ class Configuration implements ConfigurationInterface
                             ->info('Address of your category manager es database')
                             ->defaultValue('127.0.0.1:9200')
                         ->end()
+                        ->arrayNode('index_settings')
+                            ->prototype('variable')
+                                ->treatNullLike([])
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end();

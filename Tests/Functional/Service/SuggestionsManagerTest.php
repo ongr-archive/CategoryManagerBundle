@@ -11,7 +11,6 @@
 namespace ONGR\CategoryManagerBundle\Tests\Functional\Service;
 
 use ONGR\CategoryManagerBundle\Service\SuggestionsManager;
-use ONGR\ElasticsearchBundle\Result\DocumentIterator;
 use ONGR\ElasticsearchBundle\Test\ElasticsearchTestCase;
 
 class SuggestionsManagerTest extends ElasticsearchTestCase
@@ -19,37 +18,35 @@ class SuggestionsManagerTest extends ElasticsearchTestCase
     /**
      * {@inheritdoc}
      */
-    protected function getDocumentsData($driver)
+    protected function getDataArray()
     {
-        if ($driver != 'category_manager') {
-            return null;
-        }
-
         return [
-            'NodeModel' => [
-                [
-                    '_id' => 'test_id_1',
-                    'rootId' => 'test_root_1',
-                    'path' => 'Food',
-                    'weight' => 0,
-                ],
-                [
-                    '_id' => 'test_id_2',
-                    'rootId' => 'test_root_1',
-                    'path' => 'Food / Vegetables',
-                    'weight' => 1,
-                ],
-                [
-                    '_id' => 'test_id_3',
-                    'rootId' => 'test_root_1',
-                    'path' => 'Food / Vegetables / Green',
-                    'weight' => 2,
-                ],
-                [
-                    '_id' => 'test_id_4',
-                    'rootId' => 'test_root_2',
-                    'path' => 'Food / Vegetables / Orange',
-                    'weight' => 3,
+            'default' => [
+                'node' => [
+                    [
+                        '_id' => 'test_id_1',
+                        'rootId' => 'test_root_1',
+                        'path' => 'Food',
+                        'weight' => 0,
+                    ],
+                    [
+                        '_id' => 'test_id_2',
+                        'rootId' => 'test_root_1',
+                        'path' => 'Food / Vegetables',
+                        'weight' => 1,
+                    ],
+                    [
+                        '_id' => 'test_id_3',
+                        'rootId' => 'test_root_1',
+                        'path' => 'Food / Vegetables / Green',
+                        'weight' => 2,
+                    ],
+                    [
+                        '_id' => 'test_id_4',
+                        'rootId' => 'test_root_2',
+                        'path' => 'Food / Vegetables / Orange',
+                        'weight' => 3,
+                    ],
                 ],
             ]
         ];
@@ -130,13 +127,15 @@ class SuggestionsManagerTest extends ElasticsearchTestCase
      *
      * @param string $path
      * @param string $rootId
-     * @param bool   $sort
-     * @param array  $expected
+     * @param bool $sort
+     * @param array $expected
      *
      * @dataProvider getSuggestionsData
      */
     public function testGetSuggestions($path, $rootId, $sort, $expected)
     {
+        // Temporary workaround for ESB issue #34 (https://github.com/ongr-io/ElasticsearchBundle/issues/34).
+        usleep(50000);
         $repository = $this->getMockBuilder('ONGR\\CategoryManagerBundle\\Repository\\CategoryRepository')
             ->disableOriginalConstructor()
             ->getMock();
@@ -150,25 +149,7 @@ class SuggestionsManagerTest extends ElasticsearchTestCase
             ->with('ONGRCategoryManagerBundle:Category')
             ->willReturn($repository);
 
-        $elasticRepository = $this
-            ->getMockBuilder('ONGR\\ElasticsearchBundle\\ORM\\Repository')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $elasticRepository
-            ->expects($this->once())
-            ->method('execute')
-            ->with($this->anything())
-            ->willReturn(new DocumentIterator([], [], []));
-
-        $elasticManager = $this
-            ->getMockBuilder('ONGR\\ElasticsearchBundle\\ORM\\Manager')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $elasticManager
-            ->expects($this->once())
-            ->method('getRepository')
-            ->with($this->anything())
-            ->willReturn($elasticRepository);
+        $elasticManager = $this->getContainer()->get('es.manager.default');
 
         $suggestionsManager = new SuggestionsManager(
             $elasticManager,
@@ -180,9 +161,13 @@ class SuggestionsManagerTest extends ElasticsearchTestCase
 
         $documentIds = [];
         foreach ($result as $document) {
-            $documentIds[] = $document->getDocumentId();
+            $documentIds[] = $document->getId();
         }
 
+        if (!$sort) {
+            // ES returns in whatever order, so we can't really expect the order beforehand, can we?
+            sort($documentIds);
+        }
         $this->assertEquals($expected, $documentIds);
     }
 }

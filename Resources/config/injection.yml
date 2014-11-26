@@ -1,6 +1,5 @@
 parameters:
-    ongr_category_manager.model_map:
-        NodeModel.class: ONGRElasticSearchBundle
+    ongr_category_manager.model_map: ONGRElasticSearchBundle
 
     ongr_elasticsearch:
         connections:
@@ -8,11 +7,9 @@ parameters:
                 hosts:
                     - { host: %database.elastic_search.host% }
                 index_name: %ongr_category_manager.connection.index_name%
-                settings:
-                    refresh_interval: -1
-                    number_of_replicas: 0
+                settings: %ongr_category_manager.node_model_connection.settings%
         managers:
             default:
                 connection: default
-                mappings:
-                    - %ongr_category_manager.model_map%
+                mappings: %ongr_category_manager.connection.mapping%
+

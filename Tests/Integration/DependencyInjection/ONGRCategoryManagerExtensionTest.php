@@ -189,10 +189,10 @@ class ONGRCategoryManagerExtensionTest extends \PHPUnit_Framework_TestCase
     ) {
         $extension = new ONGRCategoryManagerExtension();
 
-        $extension->getConfiguration(['ongr_elasticsearch' => $config], $container);
+        $extension->getConfiguration(['ongr_category_manager' => $config], $container);
 
         // Index.
-        $this->assertTrue($container->hasParameter('ongr_elasticsearch.connection.index_name'));
+        $this->assertTrue($container->hasParameter('ongr_category_manager.connection.index_name'));
         $this->assertEquals($expectedIndex, $container->getParameter('ongr_category_manager.connection.index_name'));
 
         // Host.
@@ -201,9 +201,10 @@ class ONGRCategoryManagerExtensionTest extends \PHPUnit_Framework_TestCase
 
         // Index settings.
         $this->assertTrue($container->hasParameter('ongr_elasticsearch.mappings'));
+
         $this->assertEquals(
             $expectedSettings,
-            $container->hasParameter('ongr_category_manager.node_model_connection.settings')
+            $container->getParameter('ongr_category_manager.node_model_connection.settings')
         );
     }
 }

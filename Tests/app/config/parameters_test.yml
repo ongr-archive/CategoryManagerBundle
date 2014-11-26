@@ -9,3 +9,19 @@ parameters:
     ongr_category_manager.connection.index_name: ongr-category-test
     secret: 'superdupersecretkey#pleasedonttellitanyone'
     locale: de
+
+    ongr_category_manager.connection.mapping:
+        - ONGRCategoryManagerBundle
+
+    ongr_category_manager.node_model_connection.settings:
+        index:
+            number_of_replicas: 1
+            number_of_shards: 1
+            refresh_interval: -1
+        analysis:
+            analyzer:
+                default:
+                    type: snowball
+                    language: German2
+                    stopwords: "der,die,das,mit,und,für"
+

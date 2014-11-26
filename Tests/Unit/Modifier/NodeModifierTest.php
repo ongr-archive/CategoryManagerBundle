@@ -11,7 +11,7 @@
 namespace ONGR\CategoryManagerBundle\Tests\Unit\Modifier;
 
 use ONGR\CategoryManagerBundle\Entity\Category;
-use ONGR\CategoryManagerBundle\Model\NodeModel;
+use ONGR\CategoryManagerBundle\Document\Node;
 use ONGR\CategoryManagerBundle\Modifier\NodeModifier;
 
 /**
@@ -24,7 +24,7 @@ class NodeModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testModify()
     {
-        $document = new NodeModel();
+        $document = new Node();
 
         $entity = new Category();
         $entity->setTitle('Test category');

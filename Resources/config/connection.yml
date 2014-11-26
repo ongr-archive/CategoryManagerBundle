@@ -1,19 +1,6 @@
 parameters:
     ongr_category_manager.connection.mapping:
-        node:
-            mapping:
-                properties:
-                    id:
-                        type: string
-                        index: not_analyzed
-                    rootId:
-                        type: string
-                        index: not_analyzed
-                    path:
-                        type: string
-                        analyzer: default
-                        index_analyzer: default
-                        search_analyzer: default
+        - ONGRCategoryManagerBundle
 
     ongr_category_manager.node_model_connection.settings:
         index:
@@ -26,4 +13,3 @@ parameters:
                     type: snowball
                     language: German2
                     stopwords: "der,die,das,mit,und,für"
-
