@@ -62,7 +62,7 @@ services:
         arguments:
             - @ongr_category_manager.entity_manager
         tags:
-            - { name: fox_connections.doctrine.modifier, type: node }
+            - { name: ongr_connections.doctrine.modifier, type: node }
 
     ongr_category_manager.sync.doctrine.provider:
         class: %ongr_category_manager.sync.doctrine.provider.class%
