@@ -16,6 +16,7 @@ use ONGR\ConnectionsBundle\Sync\Trigger\TriggersManager;
 use Gedmo\DoctrineExtensions;
 // TODO: You know what to do...
 use Symfony\Component\Console\Helper\ProgressHelper;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
 
 class CategoryTriggersTest extends DoctrineTriggerTestBase
@@ -143,6 +144,14 @@ class CategoryTriggersTest extends DoctrineTriggerTestBase
         $triggersManager = $this->getServiceContainer()->get('ongr_connections.triggers_manager');
         $this->importData('triggers/job.sql');
         $this->importData('category_table.sql');
-        $triggersManager->createTriggers(new ProgressHelper(), new NullOutput());
+        if (class_exists('\Symfony\Component\Console\Helper\ProgressBar')) {
+            $progress = new ProgressBar(new NullOutput());
+        } else {
+            // This is for backwards compatibility only.
+            // @codeCoverageIgnoreStart
+            $progress = new ProgressHelper();
+            // @codeCoverageIgnoreEnd
+        }
+        $triggersManager->createTriggers($progress, new NullOutput());
     }
 }

@@ -26,6 +26,13 @@ class ONGRCategoryManagerExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $container = new ContainerBuilder();
         $container->setParameter('doctrine.entity_managers', ['test_manager' => [], 'default' => []]);
+        $container->setParameter(
+            'ongr_category_manager',
+            [
+                'mapping' => [],
+                'node_model_connection' => [ 'settings' => []],
+            ]
+        );
 
         return $container;
     }
@@ -92,119 +99,8 @@ class ONGRCategoryManagerExtensionTest extends \PHPUnit_Framework_TestCase
         $extension->load($config, $container);
     }
 
-    /**
-     * Data provider for testLoadConnectionSettings.
-     *
-     * @return array[]
+    /*
+     * Connection configuration should be tested here.
      */
-    public function loadConnectionSettingsData()
-    {
-        // Case #0 default values are used.
-        $container = $this->getContainer();
-        $config = [
-            'connection' => [
-                'index_name' => 'ongr-category-manager',
-                'host' => '127.0.0.1:9200',
-            ]
-        ];
-        $out[] = [
-            $container,
-            $config,
-            '127.0.0.1:9200',
-            'ongr-category-manager',
-            [
-                'index' => [
-                    'number_of_shards' => 1,
-                    'number_of_replicas' => 1,
-                    'refresh_interval' => -1,
-                ],
-                'analysis' => [
-                    'analyzer' => [
-                        'default' => [
-                            'type' => 'snowball',
-                            'language' => 'German2',
-                            'stopwords' => 'der,die,das,mit,und,für',
-                        ]
-                    ],
-                ],
-            ],
-        ];
 
-        // Case #1 custom.
-        $container = $this->getContainer();
-        $config = [
-            'connection' => [
-                'index_name' => 'ongr-test',
-                'host' => '156.39.58.10',
-                'port' => 6666,
-                'index_settings' => [
-                    'number_of_shards' => 3,
-                ],
-            ]
-        ];
-        $out[] = [
-            $container,
-            $config,
-            6666,
-            '156.39.58.10',
-            'ongr-test',
-            [
-                'index' => [
-                    'number_of_shards' => 3,
-                    'number_of_replicas' => 1,
-                    'refresh_interval' => -1,
-                ],
-                'analysis' => [
-                    'analyzer' => [
-                        'default' => [
-                            'type' => 'snowball',
-                            'language' => 'German2',
-                            'stopwords' => 'der,die,das,mit,und,für',
-                        ]
-                    ],
-                ],
-            ],
-        ];
-
-        return $out;
-    }
-
-    /**
-     * Tests if port host and index are loaded correctly i.e. tests connection settings.
-     *
-     * @param ContainerBuilder $container
-     * @param array            $config
-     * @param string           $expectedHost
-     * @param string           $expectedIndex
-     * @param string           $expectedSettings
-     *
-     * @dataProvider loadConnectionSettingsData
-     */
-    public function testLoadConnectionSettings(
-        $container,
-        $config,
-        $expectedHost,
-        $expectedIndex,
-        $expectedSettings
-    ) {
-        $extension = new ONGRCategoryManagerExtension();
-
-        $extension->getConfiguration(['ongr_category_manager' => $config], $container);
-
-        // Index.
-        $this->assertTrue($container->hasParameter('ongr_category_manager.connection.index_name'));
-        $this->assertEquals($expectedIndex, $container->getParameter('ongr_category_manager.connection.index_name'));
-
-        // Host.
-        $this->assertTrue($container->hasParameter('ongr_elasticsearch.connection.host'));
-        $this->assertEquals($expectedHost, $container->getParameter('ongr_category_manager.connection.host'));
-
-        // Index settings.
-        $this->assertTrue($container->hasParameter('ongr_elasticsearch.mappings'));
-
-        $this->assertEquals(
-            $expectedSettings,
-            $container->getParameter('ongr_category_manager.node_model_connection.settings')
-        );
-    }
 }
