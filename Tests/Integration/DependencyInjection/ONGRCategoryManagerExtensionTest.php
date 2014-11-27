@@ -98,9 +98,4 @@ class ONGRCategoryManagerExtensionTest extends \PHPUnit_Framework_TestCase
         $extension = new ONGRCategoryManagerExtension();
         $extension->load($config, $container);
     }
-
-    /*
-     * Connection configuration should be tested here.
-     */
-
 }

@@ -1,6 +1,6 @@
 parameters:
-    ongr_category_manager.trigger.class: ONGR\ConnectionsBundle\Sync\Trigger\ComposedTrigger
-    ongr_category_manager.trigger.related_table.class: ONGR\ConnectionsBundle\Sync\Trigger\JobInsertStatement\RelatedTable
+    ongr_category_manager.trigger.class: ONGR\ConnectionsBundle\Sync\DiffProvider\Trigger\ComposedTrigger
+    ongr_category_manager.trigger.related_table.class: ONGR\ConnectionsBundle\Sync\DiffProvider\Trigger\JobInsertStatement\RelatedTable
     ongr_category_manager.triggers.category.track_fields:
         - title
         - parent_id

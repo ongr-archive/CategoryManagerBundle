@@ -31,7 +31,7 @@ class MatchManagerController extends Controller
      */
     protected function getMatchActionData($categoryId, $matchId)
     {
-        return ['path' =>  $this->getMatchManager()->match($categoryId, $matchId)];
+        return ['path' => $this->getMatchManager()->match($categoryId, $matchId)];
     }
 
     /**

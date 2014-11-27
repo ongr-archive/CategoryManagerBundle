@@ -12,9 +12,8 @@ namespace ONGR\CategoryManagerBundle\Tests\Functional\Triggers;
 
 use ONGR\CategoryManagerBundle\Entity\Category;
 use ONGR\CategoryManagerBundle\Tests\Functional\DoctrineTriggerTestBase;
-use ONGR\ConnectionsBundle\Sync\Trigger\TriggersManager;
+use ONGR\ConnectionsBundle\Sync\DiffProvider\Trigger\TriggersManager;
 use Gedmo\DoctrineExtensions;
-// TODO: You know what to do...
 use Symfony\Component\Console\Helper\ProgressHelper;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;

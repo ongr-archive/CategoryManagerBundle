@@ -73,7 +73,7 @@ class CategoryManagerTest extends BaseDatabaseTest
             ],
         ];
 
-        // case #2 start from 3rd result, limit to zero entries
+        // Case #2 start from 3rd result, limit to zero entries.
         $out[] = ['53f4590d0ccec9.39288089', 2, 0, []];
 
         return $out;
@@ -83,8 +83,8 @@ class CategoryManagerTest extends BaseDatabaseTest
      * Test for getPlainCategoryTree().
      *
      * @param string $rootId
-     * @param int    $size
      * @param int    $from
+     * @param int    $size
      * @param array  $expectedResult
      *
      * @dataProvider getPlainCategoryTreeData

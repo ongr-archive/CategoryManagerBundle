@@ -1,14 +1,9 @@
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
 angular
@@ -16,14 +11,14 @@ angular
     .service('suggestionsService', ['$http',
         function($http) {
             /**
-             * Back reference to list controllers
+             * Back reference to list controllers.
              *
              * @type {{}}
              */
             this.listControllers = {master: {}, slave: {}};
 
             /**
-             * Helper for mode inversion
+             * Helper for mode inversion.
              *
              * @type {{master: String, slave: String}}
              */
@@ -37,28 +32,28 @@ angular
             this.suggestions = [];
 
             /**
-             * Selected node
+             * Selected node.
              *
              * @type {{}}
              */
             this.node = null;
 
             /**
-             * Selected node provider
+             * Selected node provider.
              *
              * @type {String}
              */
             this.nodeProvider = null;
 
             /**
-             * Root id
+             * Root id.
              *
              * @type {String}
              */
             this.rootId = null;
 
             /**
-             *  Register a back reference to list controller
+             *  Register a back reference to list controller.
              *
              * @param {{}} controller
              * @param {String} mode
@@ -68,7 +63,7 @@ angular
             }
 
             /**
-             * Notice controller to update matches on node selection
+             * Notice controller to update matches on node selection.
              *
              * @param {{}} node
              * @param {String} mode
@@ -86,7 +81,7 @@ angular
             }
 
             /**
-             * Node was deselected, remove suggestions
+             * Node was deselected, remove suggestions.
              */
             this.clearNode = function() {
                 this.suggestions.length = 0;
@@ -96,7 +91,7 @@ angular
             }
 
             /**
-             * Notify on different root node selection
+             * Notify on different root node selection.
              *
              * @param {String} mode
              */
@@ -117,7 +112,7 @@ angular
             }
 
             /**
-             * Request suggestions from backend based on node and root
+             * Request suggestions from backend based on node and root.
              */
             this.updateSuggestions = function() {
                 var instance = this;
@@ -136,7 +131,7 @@ angular
             }
 
             /**
-             * Returns reference to available suggestions
+             * Returns reference to available suggestions.
              *
              * @returns {[]}
              */

@@ -1,14 +1,9 @@
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
 angular
@@ -16,49 +11,49 @@ angular
     .service('matchService', ['$http', 'categoryService',
         function($http, categoryService) {
             /**
-             * Node on which matches are based
+             * Node on which matches are based.
              *
              * @type {{}}
              */
             this.node = null;
 
             /**
-             * Root on which matches are based
+             * Root on which matches are based.
              *
              * @type {null}
              */
             this.rootId = null;
 
             /**
-             * Currently active matches
+             * Currently active matches.
              *
              * @type {{}}
              */
             this.matches = {};
 
             /**
-             * Back reference to controllers
+             * Back reference to controllers.
              *
              * @type {{}}
              */
             this.controllers = {master: {}, slave: {}};
 
             /**
-             * Helper for mode inversion
+             * Helper for mode inversion.
              *
              * @type {{master: String, slave: String}}
              */
             this.modeMatrix = { master: 'slave', slave: 'master' };
 
             /**
-             * Currently active controller mode of set node
+             * Currently active controller mode of set node.
              *
              * @type {String}
              */
             this.matchNodeProvider = null;
 
             /**
-             *  Register a back reference to controller
+             *  Register a back reference to controller.
              *
              * @param {{}} controller
              * @param {String} mode
@@ -68,7 +63,7 @@ angular
             }
 
             /**
-             * Notice controller to update matches on node selection
+             * Notice controller to update matches on node selection.
              *
              * @param {{}} node
              * @param {String} mode
@@ -86,7 +81,7 @@ angular
             }
 
             /**
-             * Request matches from backend based on node and root
+             * Request matches from backend based on node and root.
              *
              * @param {{}} controller
              */
@@ -131,7 +126,7 @@ angular
             }
 
             /**
-             * Notify on different root node selection
+             * Notify on different root node selection.
              *
              * @param {String} mode
              */
@@ -153,7 +148,7 @@ angular
             }
 
             /**
-             * Match provided node with selected node
+             * Match provided node with selected node.
              *
              * @param {{}} node
              */
@@ -180,7 +175,7 @@ angular
             }
 
             /**
-             * Remove match between provided and selected nodes
+             * Remove match between provided and selected nodes.
              *
              * @param {String} match
              */
@@ -206,7 +201,7 @@ angular
             }
 
             /**
-             * Returns reference to matches
+             * Returns reference to matches.
              *
              * @returns {{}}
              */
@@ -215,7 +210,7 @@ angular
             }
 
             /**
-             * Returns selected root node id from opposing controller
+             * Returns selected root node id from opposing controller.
              *
              * @param {String} mode
              *
@@ -228,7 +223,7 @@ angular
             }
 
             /**
-             * Fires matchRootChanged event in opposing controller
+             * Fires matchRootChanged event in opposing controller.
              *
              * @param {String} mode
              */

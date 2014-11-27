@@ -127,8 +127,8 @@ class SuggestionsManagerTest extends ElasticsearchTestCase
      *
      * @param string $path
      * @param string $rootId
-     * @param bool $sort
-     * @param array $expected
+     * @param bool   $sort
+     * @param array  $expected
      *
      * @dataProvider getSuggestionsData
      */

@@ -21,7 +21,7 @@ use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
 class CategoryUpdateListenerTest extends BaseDatabaseTest
 {
     /**
-     * Data provider for prePersist()
+     * Data provider for prePersist().
      *
      * @return array
      */
@@ -29,14 +29,14 @@ class CategoryUpdateListenerTest extends BaseDatabaseTest
     {
         $out = [];
 
-        // case #0 assigned id
+        // Case #0 assigned id.
         $entity = new Category();
         $entity->setTitle('Test');
         $entity->setId('test_id');
 
         $out[] = [$entity, 'Test', 'test_id'];
 
-        // case #1 entity without id
+        // Case #1 entity without id.
         $entity = new Category();
         $entity->setTitle('Test 2');
         $out[] = [$entity, 'Test 2', null];
@@ -45,10 +45,10 @@ class CategoryUpdateListenerTest extends BaseDatabaseTest
     }
 
     /**
-     * Test for IdGenerator pre persist method
+     * Test for IdGenerator pre persist method.
      *
-     * @param Category $category
-     * @param string $title
+     * @param Category    $category
+     * @param string      $title
      * @param string|null $id
      *
      * @dataProvider getPrePersistData
