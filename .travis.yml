@@ -13,12 +13,6 @@ services:
   - elasticsearch
 install:
   - composer require --no-update symfony/symfony:${SYMFONY}
-before_install:
-  - secret=`openssl rsautl -decrypt -inkey ~/.ssh/id_rsa -in Tests/app/travis/secret`
-  - openssl aes-256-cbc -k $secret -in Tests/app/travis/id_travis.enc -d -a -out id_travis
-  - ssh-add -D
-  - chmod 600 id_travis
-  - ssh-add ./id_travis
 before_script:
   - "mkdir -p ~/.composer"
   - cp .travis.composer.json ~/.composer/config.json
