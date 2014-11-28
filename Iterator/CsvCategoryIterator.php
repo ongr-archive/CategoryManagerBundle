@@ -1,26 +1,21 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE: 
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Iterator;
+namespace ONGR\CategoryManagerBundle\Iterator;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Entity\Category;
+use ONGR\CategoryManagerBundle\Entity\Category;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Category iterator for CSV files
+ * Category iterator for CSV files.
  */
 class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwareInterface
 {
@@ -50,7 +45,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     private $customFields = ['parent'];
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setEntityManager(EntityManagerInterface $entityManager)
     {
@@ -58,7 +53,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * Sets options
+     * Sets options.
      *
      * @param array $options
      *
@@ -74,7 +69,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * Returns file iterator
+     * Returns file iterator.
      *
      * @return \SplFileObject
      */
@@ -93,7 +88,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function current()
     {
@@ -104,7 +99,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * Converts array to entity
+     * Converts array to entity.
      *
      * @param array $data
      *
@@ -115,12 +110,11 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
         $category = new Category();
 
         foreach ($data as $field => $value) {
-
             if ($field == 'parent') {
                 if (empty($value)) {
                     $value = null;
                 } else {
-                    $value = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $value);
+                    $value = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $value);
                 }
             }
 
@@ -132,7 +126,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function next()
     {
@@ -140,7 +134,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function key()
     {
@@ -150,7 +144,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function valid()
     {
@@ -158,7 +152,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function rewind()
     {
@@ -174,7 +168,7 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     }
 
     /**
-     * Check if csv fields are supported
+     * Check if csv fields are supported.
      *
      * @param array $fields
      *
@@ -182,9 +176,9 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
      */
     protected function checkHeader($fields)
     {
-        $availableFields = $this->entityManager->
-            getClassMetadata('Fox\CategoryManagerBundle\Entity\Category')->
-            getFieldNames();
+        $availableFields = $this->entityManager
+            ->getClassMetadata('ONGR\CategoryManagerBundle\Entity\Category')
+            ->getFieldNames();
         $availableFields = array_merge($availableFields, $this->customFields);
 
         foreach ($fields as $headerField) {

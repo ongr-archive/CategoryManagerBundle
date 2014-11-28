@@ -1,27 +1,25 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Command;
+namespace ONGR\CategoryManagerBundle\Command;
 
-use Fox\CategoryManagerBundle\Service\MatchManager;
+use ONGR\CategoryManagerBundle\Service\MatchManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Import matches from CSV file.
+ */
 class ImportMatchesCommand extends ContainerAwareCommand
 {
     /**
@@ -61,7 +59,7 @@ class ImportMatchesCommand extends ContainerAwareCommand
         );
 
         /* @var MatchManager $matchManager */
-        $matchManager = $this->getContainer()->get('fox_category_manager.match_manager');
+        $matchManager = $this->getContainer()->get('ongr_category_manager.match_manager');
         $matchManager->matchMultiple(
             $iterator,
             $input->getOption('headless') ? 0 : 1,

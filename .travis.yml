@@ -13,20 +13,12 @@ services:
   - elasticsearch
 install:
   - composer require --no-update symfony/symfony:${SYMFONY}
-before_install:
-  - secret=`openssl rsautl -decrypt -inkey ~/.ssh/id_rsa -in Tests/app/travis/secret`
-  - openssl aes-256-cbc -k $secret -in Tests/app/travis/id_travis.enc -d -a -out id_travis
-  - ssh-add -D
-  - chmod 600 id_travis
-  - ssh-add ./id_travis
 before_script:
-  - "mkdir -p ~/.composer"
-  - cp .travis.composer.json ~/.composer/config.json
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - composer update --prefer-dist
 script:
   - vendor/bin/phpunit --coverage-text
-  - vendor/bin/phpcs -p --standard=PSR2 --ignore=vendor/,Resources/public/,Tests/app/ ./
+  - vendor/bin/phpcs -p --standard=$TRAVIS_BUILD_DIR/vendor/ongr/ongr-strict-standard/ONGR --ignore=vendor/,Tests/app/ --extensions=php  ./
 cache:
   directories:
     - vendor/

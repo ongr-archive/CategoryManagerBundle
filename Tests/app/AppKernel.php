@@ -12,9 +12,10 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            new Fox\DDALBundle\FoxDDALBundle(),
-            new Fox\ConnectionsBundle\FoxConnectionsBundle(),
-            new Fox\CategoryManagerBundle\FoxCategoryManagerBundle(),
+            new ONGR\ElasticsearchBundle\ONGRElasticsearchBundle(),
+            new ONGR\TestingBundle\ONGRTestingBundle(),
+            new ONGR\ConnectionsBundle\ONGRConnectionsBundle(),
+            new ONGR\CategoryManagerBundle\ONGRCategoryManagerBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
     }

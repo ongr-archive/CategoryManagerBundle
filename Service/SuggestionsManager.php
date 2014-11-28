@@ -1,34 +1,34 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Service;
+namespace ONGR\CategoryManagerBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
-use Fox\DDALBundle\Core\Filter;
-use Fox\DDALBundle\Core\Query;
-use Fox\DDALBundle\Core\SessionModel;
-use Fox\DDALBundle\ElasticSearch\ResultsIterator;
-use Fox\DDALBundle\Query\Filters\Sort\Sort;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\ElasticsearchBundle\DSL\Search;
+use ONGR\ElasticsearchBundle\DSL\Query;
+use ONGR\ElasticsearchBundle\DSL\Filter;
+use ONGR\ElasticsearchBundle\ORM\Manager;
+use ONGR\ElasticsearchBundle\DSL\Sort;
+use ONGR\ElasticsearchBundle\ORM\Repository;
+use ONGR\ElasticsearchBundle\Result\DocumentIterator;
 
+/**
+ * Class SuggestionsManager. You know, for suggestions...
+ */
 class SuggestionsManager
 {
     /**
-     * @var SessionModel
+     * @var Manager
      */
-    protected $sessionModel;
+    protected $elasticManager;
 
     /**
      * @var EntityManagerInterface
@@ -41,52 +41,52 @@ class SuggestionsManager
     protected $repository;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param SessionModel $sessionModel
+     * @param Manager                $elasticManager
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct($sessionModel, $entityManager)
+    public function __construct($elasticManager, $entityManager)
     {
-        $this->sessionModel = $sessionModel;
+        $this->elasticManager = $elasticManager;
         $this->entityManager = $entityManager;
-        $this->repository = $entityManager->getRepository('FoxCategoryManagerBundle:Category');
+        $this->repository = $entityManager->getRepository('ONGRCategoryManagerBundle:Category');
     }
 
     /**
-     * Returns fuzzy matches from es
+     * Returns fuzzy matches from es.
      *
-     * @param string $categoryId
+     * @param string      $categoryId
      * @param string|null $rootId
-     * @param bool $sort
+     * @param bool        $sort
      *
-     * @return ResultsIterator
+     * @return DocumentIterator
      */
     public function getSuggestions($categoryId, $rootId = null, $sort = true)
     {
-        $reference = $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $categoryId);
+        $reference = $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $categoryId);
         $path = $this->repository->getTitlePath($reference);
 
-        $query = new Query();
+        $search = new Search();
 
         if ($rootId) {
-            $query->constraints->setTerms("rootId", $rootId);
+            $search->addQuery(new Query\MatchQuery($rootId, 'rootId'));
         }
 
-        // @TODO: Decide which fuzzy approach to use
-        // $query->filter->setShould('path', $path, Filter::CONDITION_FUZZY);
+        $search->addQuery(new Query\FuzzyQuery('path', $path));
 
-        $query->filter->setFuzzyLikeThis(['path'], $path);
-        $query->addFields(['id', 'rootId', 'path']);
+        $search->setFields(['id', 'rootId', 'path']);
 
         if ($sort) {
-            $sorting = new Sort();
-            $sorting->setField('weight');
-            $sorting->setOrder(Sort::ORDER_DESC);
-            $query->filter->sortConditions->add('weight_sort', $sorting);
+            $sorting = new Sort\Sort('weight');
+            $sorting->setOrder(Sort\Sort::ORDER_DESC);
+            $sorting->setMode('min');
+            $search->addSort($sorting);
         }
 
-        $result = $this->sessionModel->findDocuments($query);
+        $elasticRepository = $this->elasticManager->getRepository('ONGRCategoryManagerBundle:Node');
+
+        $result = $elasticRepository->execute($search, Repository::RESULTS_OBJECT);
 
         return $result;
     }

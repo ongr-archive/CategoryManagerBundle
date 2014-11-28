@@ -1,26 +1,21 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Service;
+namespace ONGR\CategoryManagerBundle\Service;
 
-use Fox\CategoryManagerBundle\Provider\CategoryProviderInterface;
-use Fox\CategoryManagerBundle\Writer\CategoryWriterInterface;
+use ONGR\CategoryManagerBundle\Provider\CategoryProviderInterface;
+use ONGR\CategoryManagerBundle\Writer\CategoryWriterInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Service responsible for transferring categories from providers to writers
+ * Service responsible for transferring categories from providers to writers.
  */
 class TransferManager
 {
@@ -35,10 +30,10 @@ class TransferManager
     protected $writers = [];
 
     /**
-     * Add a category data provider
+     * Add a category data provider.
      *
      * @param CategoryProviderInterface $provider
-     * @param string $id
+     * @param string                    $id
      */
     public function addProvider(CategoryProviderInterface $provider, $id)
     {
@@ -46,10 +41,10 @@ class TransferManager
     }
 
     /**
-     * Add a category data writer
+     * Add a category data writer.
      *
      * @param CategoryWriterInterface $writer
-     * @param string $id
+     * @param string                  $id
      */
     public function addWriter(CategoryWriterInterface $writer, $id)
     {
@@ -57,7 +52,7 @@ class TransferManager
     }
 
     /**
-     * Return a category data provider by its registered id
+     * Return a category data provider by its registered id.
      *
      * @param string $id
      *
@@ -75,7 +70,7 @@ class TransferManager
     }
 
     /**
-     * Return a category data writer by its registered id
+     * Return a category data writer by its registered id.
      *
      * @param string $id
      *
@@ -93,12 +88,12 @@ class TransferManager
     }
 
     /**
-     * Transfer categories data from provider to writer
+     * Transfer categories data from provider to writer.
      *
-     * @param string $providerId
-     * @param string $writerId
-     * @param array $providerOptions
-     * @param array $writerOptions
+     * @param string               $providerId
+     * @param string               $writerId
+     * @param array                $providerOptions
+     * @param array                $writerOptions
      * @param OutputInterface|null $output
      *
      * @throws \InvalidArgumentException

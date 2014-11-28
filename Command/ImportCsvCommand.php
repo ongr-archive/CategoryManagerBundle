@@ -1,28 +1,26 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Command;
+namespace ONGR\CategoryManagerBundle\Command;
 
-use Fox\CategoryManagerBundle\Writer\MySqlCategoryWriter;
-use Fox\CategoryManagerBundle\Service\TransferManager;
+use ONGR\CategoryManagerBundle\Writer\MySqlCategoryWriter;
+use ONGR\CategoryManagerBundle\Service\TransferManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Import categories from CSV.
+ */
 class ImportCsvCommand extends ContainerAwareCommand
 {
     /**
@@ -62,7 +60,7 @@ class ImportCsvCommand extends ContainerAwareCommand
         ];
 
         /* @var TransferManager $transferManager */
-        $transferManager = $this->getContainer()->get('fox_category_manager.transfer_manager');
+        $transferManager = $this->getContainer()->get('ongr_category_manager.transfer_manager');
         $transferManager->transfer('csv', 'mysql', $providerOptions, $writerOptions, $output);
     }
 }

@@ -1,26 +1,21 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Service;
+namespace ONGR\CategoryManagerBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Fox\CategoryManagerBundle\Entity\Match;
-use Fox\CategoryManagerBundle\Repository\CategoryRepository;
+use ONGR\CategoryManagerBundle\Entity\Match;
+use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
 
 /**
- * Provides management of category matches
+ * Provides management of category matches.
  */
 class MatchManager
 {
@@ -40,18 +35,18 @@ class MatchManager
     protected $categoryRepo;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param EntityManagerInterface $manager
      */
     public function __construct(EntityManagerInterface $manager)
     {
         $this->entityManager = $manager;
-        $this->categoryRepo = $manager->getRepository('FoxCategoryManagerBundle:Category');
+        $this->categoryRepo = $manager->getRepository('ONGRCategoryManagerBundle:Category');
     }
 
     /**
-     * Create a match between two categories, Returns matched category path
+     * Create a match between two categories, Returns matched category path.
      *
      * @param string $categoryId
      * @param string $matchId
@@ -61,13 +56,13 @@ class MatchManager
     public function match($categoryId, $matchId)
     {
         $references = [
-            $categoryId => $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $categoryId),
-            $matchId => $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $matchId),
+            $categoryId => $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $categoryId),
+            $matchId => $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $matchId),
         ];
 
         $matchPath = $this->categoryRepo->getTitlePath($references[$matchId]);
 
-        // Ids are sorted that duplicate matches like a->b|b->a will not be created
+        // Ids are sorted that duplicate matches like a->b|b->a will not be created.
         ksort($references);
 
         $match = new Match();
@@ -81,17 +76,17 @@ class MatchManager
     }
 
     /**
-     * Returns provided node matches with tree based on provided root
+     * Returns provided node matches with tree based on provided root.
      *
      * @param string $nodeId
      * @param string $rootId
-     * @param bool $flatten
+     * @param bool   $flatten
      *
      * @return array
      */
     public function getMatches($nodeId, $rootId, $flatten = false)
     {
-        $dql = 'SELECT m FROM FoxCategoryManagerBundle:Match AS m ' .
+        $dql = 'SELECT m FROM ONGRCategoryManagerBundle:Match AS m ' .
             'LEFT JOIN m.category AS c ' .
             'LEFT JOIN m.matchedCategory AS mc ' .
             'WHERE ( m.category = :nodeId AND mc.root = :matchedRootId) ' .
@@ -110,14 +105,14 @@ class MatchManager
     }
 
     /**
-     * Deletes existing match
+     * Deletes existing match.
      *
      * @param string $categoryId
      * @param string $matchId
      */
     public function removeMatch($categoryId, $matchId)
     {
-        $dql = 'DELETE FoxCategoryManagerBundle:Match AS m ' .
+        $dql = 'DELETE ONGRCategoryManagerBundle:Match AS m ' .
             'WHERE (m.category = :categoryId AND m.matchedCategory = :matchId) ' .
             'OR (m.category = :matchId AND m.matchedCategory = :categoryId)';
 
@@ -128,11 +123,11 @@ class MatchManager
     }
 
     /**
-     * Add multi matches from provided iterator
+     * Add multi matches from provided iterator.
      *
      * @param \Iterator $iterator
-     * @param int $skipEntries
-     * @param int $flushCount
+     * @param int       $skipEntries
+     * @param int       $flushCount
      */
     public function matchMultiple($iterator, $skipEntries = 0, $flushCount = self::MULTI_MATCH_FLUSH_COUNT)
     {
@@ -145,12 +140,12 @@ class MatchManager
                 continue;
             }
 
-            // Ids are sorted that duplicate matches like a->b|b->a will not be created
+            // Ids are sorted that duplicate matches like a->b|b->a will not be created.
             sort($matchId);
             $match = new Match();
-            $match->setCategory($this->entityManager->getReference('FoxCategoryManagerBundle:Category', $matchId[0]));
+            $match->setCategory($this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $matchId[0]));
             $match->setMatchedCategory(
-                $this->entityManager->getReference('FoxCategoryManagerBundle:Category', $matchId[1])
+                $this->entityManager->getReference('ONGRCategoryManagerBundle:Category', $matchId[1])
             );
 
             $this->entityManager->persist($match);
@@ -169,7 +164,7 @@ class MatchManager
     /**
      * Returns flattened categories based on provided nodeId. Reference side is independent.
      *
-     * @param array $matches
+     * @param array  $matches
      * @param string $nodeId
      *
      * @return array

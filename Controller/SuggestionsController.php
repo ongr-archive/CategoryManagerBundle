@@ -1,30 +1,28 @@
 <?php
 
 /*
- *************************************************************************
- * NFQ eXtremes CONFIDENTIAL
- * [2013] - [2014] NFQ eXtremes UAB
- * All Rights Reserved.
- *************************************************************************
- * NOTICE:
- * All information contained herein is, and remains the property of NFQ eXtremes UAB.
- * Dissemination of this information or reproduction of this material is strictly forbidden
- * unless prior written permission is obtained from NFQ eXtremes UAB.
- *************************************************************************
+ * This file is part of the ONGR package.
+ *
+ * (c) NFQ Technologies UAB <info@nfq.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Fox\CategoryManagerBundle\Controller;
+namespace ONGR\CategoryManagerBundle\Controller;
 
-use Fox\CategoryManagerBundle\Service\SuggestionsManager;
+use ONGR\CategoryManagerBundle\Service\SuggestionsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Suggestions controller class.
+ */
 class SuggestionsController extends Controller
 {
     /**
-     * Returns json data for listAction()
+     * Returns json data for listAction().
      *
      * @param string $nodeId
      * @param string $rootId
@@ -39,7 +37,7 @@ class SuggestionsController extends Controller
     }
 
     /**
-     * Controller action for retrieving suggestions
+     * Controller action for retrieving suggestions.
      *
      * @param Request $request
      *
@@ -63,12 +61,12 @@ class SuggestionsController extends Controller
     }
 
     /**
-     * Returns suggestions manager
+     * Returns suggestions manager.
      *
      * @return SuggestionsManager
      */
     protected function getSuggestionsManager()
     {
-        return $this->get('fox_category_manager.suggestions_manager');
+        return $this->get('ongr_category_manager.suggestions_manager');
     }
 }

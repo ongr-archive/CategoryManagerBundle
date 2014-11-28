@@ -1,27 +1,27 @@
 parameters:
-    fox_category_manager.trigger.class: Fox\ConnectionsBundle\Sync\Trigger\ComposedTrigger
-    fox_category_manager.trigger.related_table.class: Fox\ConnectionsBundle\Sync\Trigger\JobInsertStatement\RelatedTable
-    fox_category_manager.triggers.category.track_fields:
+    ongr_category_manager.trigger.class: ONGR\ConnectionsBundle\Sync\DiffProvider\Trigger\ComposedTrigger
+    ongr_category_manager.trigger.related_table.class: ONGR\ConnectionsBundle\Sync\DiffProvider\Trigger\JobInsertStatement\RelatedTable
+    ongr_category_manager.triggers.category.track_fields:
         - title
         - parent_id
         - root
 
 services:
     # Category triggers
-    fox_category_manager.triggers.categories_insert:
-        class: %fox_category_manager.trigger.class%
+    ongr_category_manager.triggers.categories_insert:
+        class: %ongr_category_manager.trigger.class%
         arguments: [categories, C, 1, node, NEW.id]
 
-    fox_category_manager.triggers.categories_update:
-        class: %fox_category_manager.trigger.class%
-        arguments: [categories, U, 1, node, NEW.id, %fox_category_manager.triggers.category.track_fields%]
+    ongr_category_manager.triggers.categories_update:
+        class: %ongr_category_manager.trigger.class%
+        arguments: [categories, U, 1, node, NEW.id, %ongr_category_manager.triggers.category.track_fields%]
         calls:
-          - [addStatement, [@fox_category_manager.triggers.categories_update.children]]
+          - [addStatement, [@ongr_category_manager.triggers.categories_update.children]]
 
-    fox_category_manager.triggers.categories_delete:
-        class: %fox_category_manager.trigger.class%
+    ongr_category_manager.triggers.categories_delete:
+        class: %ongr_category_manager.trigger.class%
         arguments: [categories, D, 1, node, OLD.id]
 
-    fox_category_manager.triggers.categories_update.children:
-        class: %fox_category_manager.trigger.related_table.class%
+    ongr_category_manager.triggers.categories_update.children:
+        class: %ongr_category_manager.trigger.related_table.class%
         arguments: ['categories', categories.id, '(categories.root=NEW.root AND categories.left>NEW.left AND categories.right<NEW.right) OR (categories.root=OLD.root AND categories.left>OLD.left AND categories.right<OLD.right)', node, U, 1]
