@@ -26,7 +26,7 @@ class Node implements DocumentInterface
     /**
      * @var string
      *
-     * @ES\Property(type="string", name="rootId")
+     * @ES\Property(type="string", name="root_id")
      */
     public $rootId;
 

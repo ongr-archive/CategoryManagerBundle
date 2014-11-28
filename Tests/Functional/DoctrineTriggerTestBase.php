@@ -20,7 +20,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 
 /**
- * Proudly stolen from FOX :(. Will go to fixtures soon.
+ * Prepares doctrine test environment.
  */
 abstract class DoctrineTriggerTestBase extends WebTestCase
 {
@@ -48,7 +48,7 @@ abstract class DoctrineTriggerTestBase extends WebTestCase
         try {
             $tmpConnection->getSchemaManager()->dropDatabase($name);
         } catch (\Exception $ex) {
-            // Pew.
+            // It's ok not to have a database to drop at this point.
         }
         $tmpConnection->getSchemaManager()->createDatabase($name);
         $tmpConnection->close();

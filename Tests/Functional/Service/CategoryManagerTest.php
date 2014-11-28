@@ -110,7 +110,7 @@ class CategoryManagerTest extends BaseDatabaseTest
         $result = $manager->getPlainCategoryTree('53f4590d0ccec9.39288089', null, 1, 0, false);
 
         $this->assertCount(1, $result);
-        $this->isInstanceOf($result[0], 'ONGR\CategoryManagerBundle\Entity\Category');
+        $this->assertInstanceOf('ONGR\CategoryManagerBundle\Entity\Category', $result[0]);
 
         $this->assertEquals('53f4590d0ccec9.39288089', $result[0]->getId());
         $this->assertEquals('Kiteboarding', $result[0]->getTitle());

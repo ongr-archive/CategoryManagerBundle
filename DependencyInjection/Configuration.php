@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ongr_elasticsearch');
+        $rootNode = $treeBuilder->root('ongr_category_manager');
 
         $rootNode
             ->children()
