@@ -11,7 +11,7 @@ before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - echo `which hhvm`
   - composer -V
-  - ls -laR ./phpenv
+  - ls -laR /home/travis/.phpenv/
   - /usr/bin/hhvm /usr/local/bin/composer update --prefer-dist -vvv --profile
 script:
   - vendor/bin/phpunit --coverage-text
