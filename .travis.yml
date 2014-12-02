@@ -12,7 +12,8 @@ before_script:
   - echo `which hhvm`
   - composer -V
   - echo `which composer`
-  - /usr/bin/hhvm `which composer` update --prefer-dist -vvv --profile
+  - cat /home/travis/.phpenv/libexec/rbenv
+  - /usr/bin/hhvm /usr/local/bin/composer update --prefer-dist -vvv --profile"
 script:
   - vendor/bin/phpunit --coverage-text
   - vendor/bin/phpcs -p --standard=$TRAVIS_BUILD_DIR/vendor/ongr/ongr-strict-standard/ONGR --ignore=vendor/,Tests/app/ --extensions=php  ./
