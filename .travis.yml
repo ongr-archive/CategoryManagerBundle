@@ -12,7 +12,7 @@ matrix:
 services:
   - elasticsearch
 install:
-  - composer require --no-update symfony/symfony:${SYMFONY}
+  - hhvm `which composer require --no-update symfony/symfony:${SYMFONY}
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - hhvm `which composer` update --prefer-dist
