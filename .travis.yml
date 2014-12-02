@@ -1,5 +1,6 @@
 language: php
 php:
+  - hhvm
   - 5.4
   - 5.5
 env:
@@ -15,7 +16,8 @@ install:
   - composer require --no-update symfony/symfony:${SYMFONY}
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - hhvm `which composer` update --prefer-dist
+  - echo `which hhvm`
+  - composer update --prefer-dist
 script:
   - vendor/bin/phpunit --coverage-text
   - vendor/bin/phpcs -p --standard=$TRAVIS_BUILD_DIR/vendor/ongr/ongr-strict-standard/ONGR --ignore=vendor/,Tests/app/ --extensions=php  ./
