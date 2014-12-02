@@ -9,11 +9,11 @@ install:
   - composer require --no-update symfony/symfony:${SYMFONY}
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - /usr/bin/hhvm /home/travis/.phpenv/versions/`phpenv version | awk '{print $1}'`/bin/composer update --prefer-dist -vvv --profile
+  - /usr/bin/hhvm /home/travis/.phpenv/versions/`phpenv version | awk '{print $1}'`/bin/composer update --prefer-dist -vvv --profile --cache-dir=$TRAVIS_BUILD_DIR/.composer/cache
 script:
   - vendor/bin/phpunit --coverage-text
   - vendor/bin/phpcs -p --standard=$TRAVIS_BUILD_DIR/vendor/ongr/ongr-strict-standard/ONGR --ignore=vendor/,Tests/app/ --extensions=php  ./
 cache:
   directories:
     - vendor
-    - $HOME/.composer/cache
+    - .composer
