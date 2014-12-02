@@ -8,6 +8,7 @@ services:
 install:
   - composer require --no-update symfony/symfony:${SYMFONY}
 before_script:
+  - composer self-update
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - /usr/bin/hhvm /home/travis/.phpenv/versions/`phpenv version | awk '{print $1}'`/bin/composer update --prefer-dist -vvv --profile
 script:
