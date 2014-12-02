@@ -21,9 +21,7 @@ use ONGR\CategoryManagerBundle\Entity\Category;
 class CategoryRemoveListener implements EventSubscriber
 {
     /**
-     * Categories that are marked for removal.
-     *
-     * @var array
+     * @var array Categories that are marked for removal.
      */
     protected $removedCategories;
 
