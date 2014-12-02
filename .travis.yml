@@ -1,15 +1,8 @@
 language: php
 php:
-  - hhvm
-  - 5.4
   - 5.5
 env:
-  - SYMFONY="2.3.*"
   - SYMFONY="2.5.*"
-matrix:
-  exclude:
-    - php: 5.5
-      env: SYMFONY="2.3.*"
 services:
   - elasticsearch
 install:
@@ -17,7 +10,8 @@ install:
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - echo `which hhvm`
-  - composer update --prefer-dist
+  - echo `which composer`
+  - /usr/bin/hhvm `which composer` update --prefer-dist
 script:
   - vendor/bin/phpunit --coverage-text
   - vendor/bin/phpcs -p --standard=$TRAVIS_BUILD_DIR/vendor/ongr/ongr-strict-standard/ONGR --ignore=vendor/,Tests/app/ --extensions=php  ./
