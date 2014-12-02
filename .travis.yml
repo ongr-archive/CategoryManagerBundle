@@ -1,24 +1,20 @@
 language: php
 php:
-  - 5.4
   - 5.5
 env:
-  - SYMFONY="2.3.*"
   - SYMFONY="2.5.*"
-matrix:
-  exclude:
-    - php: 5.5
-      env: SYMFONY="2.3.*"
 services:
   - elasticsearch
 install:
   - composer require --no-update symfony/symfony:${SYMFONY}
 before_script:
+  - composer self-update
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - composer update --prefer-dist
+  - /usr/bin/hhvm /home/travis/.phpenv/versions/`phpenv version | awk '{print $1}'`/bin/composer update --prefer-dist -vvv --profile
 script:
   - vendor/bin/phpunit --coverage-text
   - vendor/bin/phpcs -p --standard=$TRAVIS_BUILD_DIR/vendor/ongr/ongr-strict-standard/ONGR --ignore=vendor/,Tests/app/ --extensions=php  ./
 cache:
   directories:
-    - vendor/
+    - vendor
+    - $HOME/.composer/cache
