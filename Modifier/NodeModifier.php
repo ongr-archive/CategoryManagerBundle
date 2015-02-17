@@ -12,16 +12,17 @@ namespace ONGR\CategoryManagerBundle\Modifier;
 
 use Doctrine\ORM\EntityManagerInterface;
 use ONGR\CategoryManagerBundle\Entity\Category;
-use ONGR\CategoryManagerBundle\Model\NodeModel;
+use ONGR\CategoryManagerBundle\Document\Node;
 use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
-use ONGR\ConnectionsBundle\DataCollector\DataCollectorInterface;
-use ONGR\ConnectionsBundle\Doctrine\Modifier\ModifierInterface;
-use ONGR\ElasticsearchBundle\Document\DocumentInterface;
+use ONGR\ConnectionsBundle\EventListener\AbstractImportModifyEventListener;
+use ONGR\ConnectionsBundle\Pipeline\Event\ItemPipelineEvent;
+use ONGR\ConnectionsBundle\Pipeline\Item\AbstractImportItem;
+use ONGR\ConnectionsBundle\Pipeline\ItemSkipper;
 
 /**
  * Modifier for converting category entity to node document.
  */
-class NodeModifier implements ModifierInterface
+class NodeModifier extends AbstractImportModifyEventListener
 {
     /**
      * @var EntityManagerInterface
@@ -47,11 +48,23 @@ class NodeModifier implements ModifierInterface
     /**
      * {@inheritdoc}
      */
-    public function modify(DocumentInterface $document, $entity, $type = DataCollectorInterface::TYPE_FULL)
+    public function modify(AbstractImportItem $eventItem, ItemPipelineEvent $event)
     {
-        /* @var NodeModel $document */
+        /* @var Node $document */
+        $document = $eventItem->getDocument();
+        if (!$document instanceof Node) {
+            ItemSkipper::skip($event, 'Not a Node document');
 
-        /* @var Category  $entity */
+            return;
+        }
+
+        /* @var Category $entity */
+        $entity = $eventItem->getEntity();
+        if (!$entity instanceof Category) {
+            ItemSkipper::skip($event, 'Not a Category entity');
+
+            return;
+        }
 
         $document->id = $entity->getId();
         $document->rootId = $entity->getRoot();

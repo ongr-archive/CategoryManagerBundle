@@ -42,9 +42,9 @@ class Match
 
     /**
      * Sets category.
-     * 
+     *
      * @param Category $category
-     * 
+     *
      * @return Match
      */
     public function setCategory(Category $category)
