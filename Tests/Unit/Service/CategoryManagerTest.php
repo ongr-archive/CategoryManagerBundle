@@ -169,7 +169,7 @@ class CategoryManagerTest extends \PHPUnit_Framework_TestCase
                 'title' => 'test_title',
                 'root' => null,
                 'path' => null,
-            ]
+            ],
         ];
         $out[] = [$entityManager, true, $result];
 

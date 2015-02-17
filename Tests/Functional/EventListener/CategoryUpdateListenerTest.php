@@ -16,9 +16,9 @@
 namespace ONGR\CategoryManagerBundle\Tests\Functional\Service;
 
 use ONGR\CategoryManagerBundle\Entity\Category;
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 
-class CategoryUpdateListenerTest extends BaseDatabaseTest
+class CategoryUpdateListenerTest extends AbstractDatabaseTestCase
 {
     /**
      * Data provider for prePersist().

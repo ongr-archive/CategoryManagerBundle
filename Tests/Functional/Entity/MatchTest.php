@@ -12,9 +12,9 @@ namespace ONGR\CategoryManagerBundle\Functional\Integration\Entity;
 
 use ONGR\CategoryManagerBundle\Entity\Category;
 use ONGR\CategoryManagerBundle\Entity\Match;
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 
-class MatchTest extends BaseDatabaseTest
+class MatchTest extends AbstractDatabaseTestCase
 {
     /**
      * Test if we are able to persist match entity.

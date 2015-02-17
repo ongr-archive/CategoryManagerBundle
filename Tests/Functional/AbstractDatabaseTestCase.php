@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Base test with database integration.
  */
-abstract class BaseDatabaseTest extends WebTestCase
+abstract class AbstractDatabaseTestCase extends WebTestCase
 {
     /**
      * @var ContainerInterface

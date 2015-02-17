@@ -11,14 +11,14 @@
 namespace ONGR\CategoryManagerBundle\Tests\Functional\Triggers;
 
 use ONGR\CategoryManagerBundle\Entity\Category;
-use ONGR\CategoryManagerBundle\Tests\Functional\DoctrineTriggerTestBase;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDoctrineTriggerTestCase;
 use ONGR\ConnectionsBundle\Sync\DiffProvider\Trigger\TriggersManager;
 use Gedmo\DoctrineExtensions;
 use Symfony\Component\Console\Helper\ProgressHelper;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
 
-class CategoryTriggersTest extends DoctrineTriggerTestBase
+class CategoryTriggersTest extends AbstractDoctrineTriggerTestCase
 {
     /**
      * {@inheritdoc}

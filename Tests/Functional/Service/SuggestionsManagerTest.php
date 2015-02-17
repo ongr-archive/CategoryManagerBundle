@@ -48,7 +48,7 @@ class SuggestionsManagerTest extends ElasticsearchTestCase
                         'weight' => 3,
                     ],
                 ],
-            ]
+            ],
         ];
     }
 

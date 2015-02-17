@@ -11,9 +11,9 @@
 namespace ONGR\CategoryManagerBundle\Tests\Functional\EventListener;
 
 use ONGR\CategoryManagerBundle\Entity\Match;
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 
-class CategoryRemoveListenerTest extends BaseDatabaseTest
+class CategoryRemoveListenerTest extends AbstractDatabaseTestCase
 {
     /**
      * Test to check if matches are removed after category removal.
