@@ -10,6 +10,8 @@ parameters:
     secret: 'superdupersecretkey#pleasedonttellitanyone'
     locale: de
 
+    ongr_connections.import.modifier.class: ONGR\CategoryManagerBundle\Modifier\NodeModifier
+
     ongr_category_manager.connection.mapping:
         - ONGRCategoryManagerBundle
 
