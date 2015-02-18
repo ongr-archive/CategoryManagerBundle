@@ -13,20 +13,16 @@
         {
             "type": "composer",
             "url": "http://packagist.fox.nfq.lt"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:ongr-io/ConnectionsBundle.git"
         }
     ],
     "require": {
         "php": ">=5.4",
-        "symfony/symfony": "~2.3",
+        "symfony/symfony": "~2.6",
         "doctrine/orm": "~2.4",
         "doctrine/doctrine-bundle": "~1.2",
         "stof/doctrine-extensions-bundle": "~1.1",
         "friendsofsymfony/jsrouting-bundle": "~1.0",
-        "ongr/connections-bundle": "dev-master"
+        "ongr/connections-bundle": "~0.6"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.2",
