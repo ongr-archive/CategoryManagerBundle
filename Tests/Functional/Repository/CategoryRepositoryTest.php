@@ -11,10 +11,10 @@
 
 namespace ONGR\CategoryManagerBundle\Tests\Functional\Repository;
 
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
 
-class CategoryRepositoryTest extends BaseDatabaseTest
+class CategoryRepositoryTest extends AbstractDatabaseTestCase
 {
     /**
      * Data provider for testGetTitlePath.

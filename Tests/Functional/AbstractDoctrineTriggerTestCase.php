@@ -23,7 +23,7 @@ use Doctrine\DBAL\DriverManager;
 /**
  * Prepares doctrine test environment.
  */
-abstract class DoctrineTriggerTestBase extends WebTestCase
+abstract class AbstractDoctrineTriggerTestCase extends WebTestCase
 {
     /**
      * @var ContainerInterface

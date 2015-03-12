@@ -12,12 +12,12 @@
 namespace ONGR\CategoryManagerBundle\Tests\Functional\Entity;
 
 use ONGR\CategoryManagerBundle\Entity\Category;
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 
 /**
  * Tests if DoctrineExtensions integration works.
  */
-class DoctrineExtensionsTest extends BaseDatabaseTest
+class DoctrineExtensionsTest extends AbstractDatabaseTestCase
 {
     /**
      * Test if entity can be saved to database.

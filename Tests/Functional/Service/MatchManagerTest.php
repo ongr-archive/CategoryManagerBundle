@@ -13,9 +13,9 @@ namespace ONGR\CategoryManagerBundle\Tests\Functional\Service;
 
 use ONGR\CategoryManagerBundle\Entity\Match;
 use ONGR\CategoryManagerBundle\Service\MatchManager;
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 
-class MatchManagerTest extends BaseDatabaseTest
+class MatchManagerTest extends AbstractDatabaseTestCase
 {
     /**
      * Data provider for match().

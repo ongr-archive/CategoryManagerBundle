@@ -15,9 +15,9 @@ use ONGR\CategoryManagerBundle\Entity\Category;
 use ONGR\CategoryManagerBundle\Provider\CategoryProvider;
 use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
 use ONGR\CategoryManagerBundle\Service\TransferManager;
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 
-class MySqlCategoryWriterTest extends BaseDatabaseTest
+class MySqlCategoryWriterTest extends AbstractDatabaseTestCase
 {
     /**
      * Data provider for saveCategories.

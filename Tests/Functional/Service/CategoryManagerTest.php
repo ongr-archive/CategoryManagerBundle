@@ -13,9 +13,9 @@ namespace ONGR\CategoryManagerBundle\Tests\Functional\Service;
 
 use ONGR\CategoryManagerBundle\Entity\Match;
 use ONGR\CategoryManagerBundle\Service\CategoryManager;
-use ONGR\CategoryManagerBundle\Tests\Functional\BaseDatabaseTest;
+use ONGR\CategoryManagerBundle\Tests\Functional\AbstractDatabaseTestCase;
 
-class CategoryManagerTest extends BaseDatabaseTest
+class CategoryManagerTest extends AbstractDatabaseTestCase
 {
     /**
      * Data provider for testPlainTree().
