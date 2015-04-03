@@ -13,6 +13,7 @@ namespace ONGR\CategoryManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Category.
@@ -21,7 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="ONGR\CategoryManagerBundle\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
  */
-class Category
+class Category implements Translatable
 {
     /**
      * @var string
@@ -33,8 +34,15 @@ class Category
 
     /**
      * @var string
+     * @Gedmo\Locale
+     */
+    private $locale;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="title", type="string", length=128)
+     * @Gedmo\Translatable
      */
     private $title;
 
@@ -116,6 +124,26 @@ class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param string $locale
+     *
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
     }
 
     /**

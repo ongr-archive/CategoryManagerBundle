@@ -161,7 +161,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generate(ongr_category_managerr_match'),
+                    url: Routing.generate('ongr_category_manager_match'),
                     data: { categoryId: this.node.id, matchId:  node.id }
                 }).success(function(data, status) {
                     instance.matches[node.id] = {id: node.id, path: data.path};
@@ -188,7 +188,7 @@ angular
                 var instance = this;
                 $http({
                     method:"POST",
-                    url: Routing.generateongr_category_managerer_remove_match'),
+                    url: Routing.generate('ongr_category_manager_remove_match'),
                     data: { categoryId: this.node.id, matchId:  node.id }
                 }).success(function(data, status) {
                     delete instance.matches[node.id];

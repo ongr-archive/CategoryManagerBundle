@@ -71,6 +71,11 @@ class CategoryManagerController extends Controller
         $category = $manager->getCategory($categoryId, true);
         $category->setTitle($content['title']);
 
+        $translationEnabled = $this->container->getParameter('ongr_category_manager.translations.enabled') == true;
+        if ($translationEnabled) {
+            $this->updateLocalizedProperty($category, 'title', $content);
+        }
+
         if (isset($content['parent'])) {
             $parent = $manager->getCategory($content['parent']);
             $category->setParent($parent);
@@ -226,5 +231,28 @@ class CategoryManagerController extends Controller
     protected function getCategoryManager()
     {
         return $this->get('ongr_category_manager.category_manager');
+    }
+
+    /**
+     * Updates entity's property translations.
+     *
+     * @param mixed  $entity
+     * @param string $property
+     * @param array  $data
+     */
+    protected function updateLocalizedProperty($entity, $property, $data)
+    {
+        $locales = $this->container->getParameter('ongr_category_manager.translations.locales');
+        $defaultLocale = $this->container->getParameter('ongr_category_manager.translations.default_locale');
+        $repository = $this->getDoctrine()->getManager()->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+        foreach ($locales as $locale) {
+            if (isset($data["{$property}_{$locale}"])) {
+                $repository->translate($entity, $property, $locale, $data["{$property}_{$locale}"]);
+                if ($locale == $defaultLocale) {
+                    $propertySetter = 'set' . ucfirst($property);
+                    $entity->$propertySetter($data["{$property}_{$locale}"]);
+                }
+            }
+        }
     }
 }
