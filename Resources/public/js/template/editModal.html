@@ -4,10 +4,10 @@
 </div>
 <div class="modal-body">
     <form name="nodeEditForm">
-        <div class="form-group" ng-class="{ 'has-error': nodeEditForm.title.$error.required }">
-            <label for="nodeEditTitle">Title</label>
-            <input id="nodeEditTitle" name="title" type="text" class="form-control" ng-model="node.title" ng-required="true">
-            <span class="help-block" ng-show="nodeEditForm.title.$error.required">Field is required</span>
+        <div class="form-group" ng-class="{ 'has-error': nodeEditForm['title_' + locale].$error.required }" ng-repeat="locale in locales">
+            <label for="nodeEditTitle_{{ locale }}">Title {{ locale | uppercase }}</label>
+            <input id="nodeEditTitle_{{ locale }}" name="title_{{ locale }}" type="text" class="form-control" ng-model="node['title_' + locale]" ng-required="true">
+            <span class="help-block" ng-show="nodeEditForm['title_' + locale].$error.required">Field is required</span>
         </div>
     </form>
 </div>

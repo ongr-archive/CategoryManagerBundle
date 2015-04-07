@@ -30,10 +30,19 @@ class CategoryManagerController extends Controller
      */
     protected function getListActionData()
     {
+        $locales = null;
+        $defaultLocale = 'en';
+        if ($this->container->getParameter('ongr_category_manager.translations.enabled') == true) {
+            $locales = $this->container->getParameter('ongr_category_manager.translations.locales');
+            $defaultLocale = $this->container->getParameter('ongr_category_manager.translations.default_locale');
+        }
+
         return [
             'categories_data' => [
                 'root_nodes' => $this->getCategoryManager()->getRootNodes(true),
             ],
+            'locales' => $locales,
+            'default_locale' => $defaultLocale,
         ];
     }
 

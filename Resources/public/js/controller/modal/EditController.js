@@ -9,8 +9,8 @@
 
 angular
     .module('controller.modal.edit', [])
-    .controller('edit', ['$scope', '$modalInstance', '$http', 'node', 'categoryService',
-        function($scope, $modalInstance, $http, node, categoryService) {
+    .controller('edit', ['$scope', '$modalInstance', '$http', 'node', 'categoryService', '$window',
+        function($scope, $modalInstance, $http, node, categoryService, $window) {
             /**
              * Category node passed to modal
              *
@@ -24,6 +24,20 @@ angular
              * @type {{}}
              */
             $scope.originalNode = angular.copy(node);
+
+            /**
+             * List of locales
+             *
+             * @type {{}}
+             */
+            $scope.locales = $window.locales;
+
+            /**
+             * Default locale
+             *
+             * @type {{}}
+             */
+            $scope.defaultLocale = $window.default_locale;
 
             /**
              * Revert changed data back to its original form
@@ -48,13 +62,26 @@ angular
                     'ongr_category_manager_save',
                     { categoryId: $scope.node.id }
                 );
-                $http({method:"POST", url: url, data: {title: $scope.node.title}}).
-                    error(function(data, status) {
-                        $scope.restore();
-                        alert("Error while saving category.");
-                    }).success(function(data, status) {
-                        categoryService.updateRootNode($scope.node);
-                    });
+
+                var data = {};
+                for (var i=0; i<$scope.locales.length; i++) {
+                    if ($scope.locales[i] == $scope.defaultLocale) {
+                        data['title'] = $scope.node['title_' + $scope.locales[i]];
+                    }
+                    data['title_' + $scope.locales[i]] = $scope.node['title_' + $scope.locales[i]];
+                }
+
+                $http({
+                    method: "POST",
+                    url: url,
+                    data: data
+                }).error(function(data, status) {
+                    $scope.restore();
+                    alert("Error while saving category.");
+                }).success(function(data, status) {
+                    $scope.node.title = data.title;
+                    categoryService.updateRootNode($scope.node);
+                });
 
                 $modalInstance.close();
             }
