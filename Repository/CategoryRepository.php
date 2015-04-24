@@ -36,7 +36,7 @@ class CategoryRepository extends NestedTreeRepository
         $pathNodes = $this->getPath($category);
         $path = [];
 
-        /* @var Category $node */
+        /** @var Category $node */
         foreach ($pathNodes as $node) {
             $path[] = $node->getTitle();
         }

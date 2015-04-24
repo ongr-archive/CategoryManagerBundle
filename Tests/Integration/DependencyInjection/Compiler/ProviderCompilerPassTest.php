@@ -44,12 +44,11 @@ class ProviderCompilerPassTest extends \PHPUnit_Framework_TestCase
             ->with('ongr_category_manager.provider')
             ->willReturn(
                 [
-                    'test.provider.name' =>
-                        [
-                            0 => [
-                                'id' => 'test_provider_id',
-                            ],
+                    'test.provider.name' => [
+                        0 => [
+                            'id' => 'test_provider_id',
                         ],
+                    ],
                 ]
             );
 

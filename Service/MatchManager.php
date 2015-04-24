@@ -174,7 +174,7 @@ class MatchManager
     {
         $flattenedMatches = [];
 
-        /* @var Match $match */
+        /** @var Match $match */
         foreach ($matches as $match) {
             if ($match->getCategory()->getId() == $nodeId) {
                 $node = $match->getMatchedCategory();

@@ -168,12 +168,12 @@ class CategoryManager
         }
         $dql .= 'WHERE c.root = :rootId ';
         if ($matchRootId) {
-            $dql .= 'AND match1Category IS NULL ' .
-                'AND match2Category IS NULL ';
+            $dql .= 'AND match1Category.id IS NULL ' .
+                'AND match2Category.id IS NULL ';
         }
         $dql .= 'ORDER BY c.weight DESC, c.left ASC';
 
-        /* @var Query $query */
+        /** @var Query $query */
         $query = $this->entityManager
             ->createQuery($dql)
             ->setParameters(['rootId' => $rootId])
@@ -200,7 +200,7 @@ class CategoryManager
     {
         $out = [];
 
-        /* @var CategoryRepository $repo */
+        /** @var CategoryRepository $repo */
         $repo = $this->entityManager->getRepository('ONGRCategoryManagerBundle:Category');
 
         /** @var Category $node */

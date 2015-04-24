@@ -51,7 +51,7 @@ class NodeModifier extends AbstractImportModifyEventListener
      */
     public function modify(AbstractImportItem $eventItem, ItemPipelineEvent $event)
     {
-        /* @var Node $document */
+        /** @var Node $document */
         $document = $eventItem->getDocument();
         if (!$document instanceof Node) {
             ItemSkipper::skip($event, 'Not a Node document');
@@ -59,7 +59,7 @@ class NodeModifier extends AbstractImportModifyEventListener
             return;
         }
 
-        /* @var Category $entity */
+        /** @var Category $entity */
         $entity = $eventItem->getEntity();
         if (!$entity instanceof Category) {
             ItemSkipper::skip($event, 'Not a Category entity');

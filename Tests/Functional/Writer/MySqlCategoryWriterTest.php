@@ -102,7 +102,7 @@ class MySqlCategoryWriterTest extends AbstractDatabaseTestCase
 
         $container = $this->getContainer();
 
-        /* @var TransferManager $manager */
+        /** @var TransferManager $manager */
         $manager = $container->get('ongr_category_manager.transfer_manager');
         $manager->addProvider($provider, 'test_provider');
 
@@ -121,7 +121,7 @@ class MySqlCategoryWriterTest extends AbstractDatabaseTestCase
         $output = $this->getMock('Symfony\Component\Console\Output\OutputInterface');
         $manager->transfer('test_provider', 'mysql', ['data' => $entities], $writerOptions, $output);
 
-        /* @var CategoryRepository $repo */
+        /** @var CategoryRepository $repo */
         $repo = $em->getRepository('ONGRCategoryManagerBundle:Category');
 
         $rootNode = $repo->find($rootId);
@@ -147,7 +147,7 @@ class MySqlCategoryWriterTest extends AbstractDatabaseTestCase
 
         $container = $this->getContainer();
 
-        /* @var TransferManager $manager */
+        /** @var TransferManager $manager */
         $manager = $container->get('ongr_category_manager.transfer_manager');
         $manager->addProvider($provider, 'test_provider');
 
@@ -173,7 +173,7 @@ class MySqlCategoryWriterTest extends AbstractDatabaseTestCase
 
         $container = $this->getContainer();
 
-        /* @var TransferManager $manager */
+        /** @var TransferManager $manager */
         $manager = $container->get('ongr_category_manager.transfer_manager');
         $manager->addProvider($provider, 'test_provider');
 

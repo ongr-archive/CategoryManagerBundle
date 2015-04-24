@@ -78,11 +78,8 @@ class CsvCategoryIterator implements CategoryIteratorInterface, EntityManagerAwa
     {
         if ($this->iterator === null) {
             $this->iterator = new \SplFileObject($this->options['file']);
-            $this->iterator->setFlags(
-                \SplFileObject::READ_CSV |
-                \SplFileObject::SKIP_EMPTY |
-                \SplFileObject::READ_AHEAD
-            );
+            $this->iterator
+                ->setFlags(\SplFileObject::READ_CSV | \SplFileObject::SKIP_EMPTY | \SplFileObject::READ_AHEAD);
         }
 
         return $this->iterator;

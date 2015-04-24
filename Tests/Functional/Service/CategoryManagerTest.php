@@ -92,7 +92,7 @@ class CategoryManagerTest extends AbstractDatabaseTestCase
      */
     public function testPlainTree($rootId, $from, $size, $expectedResult)
     {
-        /* @var CategoryManager $manager */
+        /** @var CategoryManager $manager */
         $manager = $this->getContainer()->get('ongr_category_manager.category_manager');
 
         $result = $manager->getPlainCategoryTree($rootId, null, $size, $from, true);
@@ -105,7 +105,7 @@ class CategoryManagerTest extends AbstractDatabaseTestCase
      */
     public function testPlainTreeEntities()
     {
-        /* @var CategoryManager $manager */
+        /** @var CategoryManager $manager */
         $manager = $this->getContainer()->get('ongr_category_manager.category_manager');
 
         $result = $manager->getPlainCategoryTree('53f4590d0ccec9.39288089', null, 1, 0, false);
@@ -122,7 +122,7 @@ class CategoryManagerTest extends AbstractDatabaseTestCase
      */
     public function testPlainTreeFiltered()
     {
-        /* @var CategoryManager $manager */
+        /** @var CategoryManager $manager */
         $manager = $this->getContainer()->get('ongr_category_manager.category_manager');
         $entityManager = $this->getEntityManager();
 

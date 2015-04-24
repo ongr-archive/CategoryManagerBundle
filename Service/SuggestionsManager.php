@@ -18,7 +18,6 @@ use ONGR\ElasticsearchBundle\DSL\Query;
 use ONGR\ElasticsearchBundle\DSL\Filter;
 use ONGR\ElasticsearchBundle\ORM\Manager;
 use ONGR\ElasticsearchBundle\DSL\Sort;
-use ONGR\ElasticsearchBundle\ORM\Repository;
 use ONGR\ElasticsearchBundle\Result\DocumentIterator;
 
 /**
@@ -71,7 +70,7 @@ class SuggestionsManager
         $search = new Search();
 
         if ($rootId) {
-            $search->addQuery(new Query\MatchQuery($rootId, 'rootId'));
+            $search->addQuery(new Query\MatchQuery('rootId', $rootId));
         }
 
         $search->addQuery(new Query\FuzzyQuery('path', $path));
@@ -87,7 +86,7 @@ class SuggestionsManager
 
         $elasticRepository = $this->elasticManager->getRepository('ONGRCategoryManagerBundle:Node');
 
-        $result = $elasticRepository->execute($search, Repository::RESULTS_OBJECT);
+        $result = $elasticRepository->execute($search);
 
         return $result;
     }

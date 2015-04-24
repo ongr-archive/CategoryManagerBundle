@@ -96,7 +96,7 @@ class MatchManagerControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new MatchManagerController();
         $controller->setContainer($container);
 
-        /* @var Response $response */
+        /** @var Response $response */
         $response = $controller->matchAction($request);
 
         $this->assertEquals($statusCode, $response->getStatusCode());
@@ -183,7 +183,7 @@ class MatchManagerControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new MatchManagerController();
         $controller->setContainer($container);
 
-        /* @var Response $response */
+        /** @var Response $response */
         $response = $controller->matchesAction($request);
 
         $this->assertEquals($statusCode, $response->getStatusCode());
@@ -294,7 +294,7 @@ class MatchManagerControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new MatchManagerController();
         $controller->setContainer($container);
 
-        /* @var Response $response */
+        /** @var Response $response */
         $response = $controller->removeMatchAction($request);
 
         $this->assertEquals($statusCode, $response->getStatusCode());
