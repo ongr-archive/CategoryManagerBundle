@@ -58,7 +58,6 @@ class SuggestionsControllerTest extends \PHPUnit_Framework_TestCase
         $out[] = [$request, $manager, 400];
 
         // Case #3 a proper request.
-
         $iterator = new DummyIterator();
         $iterator->setOptions(['data' => []]);
 
@@ -101,7 +100,7 @@ class SuggestionsControllerTest extends \PHPUnit_Framework_TestCase
         $controller = new SuggestionsController();
         $controller->setContainer($container);
 
-        /* @var Response $response */
+        /** @var Response $response */
         $response = $controller->listAction($request);
 
         $this->assertEquals($statusCode, $response->getStatusCode());

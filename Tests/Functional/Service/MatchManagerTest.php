@@ -62,7 +62,7 @@ class MatchManagerTest extends AbstractDatabaseTestCase
      */
     public function testMatch($categoryId, $matchId, $expectedPath, $searchId, $matchResultId)
     {
-        /* @var MatchManager $matchManager */
+        /** @var MatchManager $matchManager */
         $matchManager = $this->getContainer()->get('ongr_category_manager.match_manager');
         $matchPath = $matchManager->match($categoryId, $matchId);
 
@@ -71,7 +71,7 @@ class MatchManagerTest extends AbstractDatabaseTestCase
         $em = $this->getEntityManager();
         $em->clear();
 
-        /* @var Match $match */
+        /** @var Match $match */
         $match = $em->getRepository('ONGRCategoryManagerBundle:Match')->findOneByCategory($searchId);
 
         $this->isInstanceOf('ONGR\\CategoryManagerBundle\\Entity\\Match', $match);
@@ -109,9 +109,9 @@ class MatchManagerTest extends AbstractDatabaseTestCase
             '53f45976ef75c9.78862935',
             // Category Id.
             '53f45a96c733f6.75280890',
-             // Match Id.
+            // Match Id.
             '53f45a96c733f6.75280890',
-             // Root Id.
+            // Root Id.
             [
                 '53f45a96c733f6.75280890' => [
                     'id' => '53f45a96c733f6.75280890',
@@ -135,7 +135,7 @@ class MatchManagerTest extends AbstractDatabaseTestCase
      */
     public function testGetMatches($categoryId, $matchId, $rootId, $expectedResult)
     {
-        /* @var MatchManager $matchManager */
+        /** @var MatchManager $matchManager */
         $matchManager = $this->getContainer()->get('ongr_category_manager.match_manager');
         $matchManager->match($categoryId, $matchId);
 
@@ -176,20 +176,20 @@ class MatchManagerTest extends AbstractDatabaseTestCase
         // Case #0 not reversed match removal.
         $out[] = [
             '53f45976ef75c9.78862935',
-             // Initial match.
+            // Initial match.
             '53f45a96c733f6.75280890',
             '53f45976ef75c9.78862935',
-             // Remove match ids.
+            // Remove match ids.
             '53f45a96c733f6.75280890',
         ];
 
         // Case #1 reversed match removal.
         $out[] = [
             '53f45976ef75c9.78862935',
-             // Initial match.
+            // Initial match.
             '53f45a96c733f6.75280890',
             '53f45a96c733f6.75280890',
-             // Remove match ids.
+            // Remove match ids.
             '53f45976ef75c9.78862935',
         ];
 
@@ -208,7 +208,7 @@ class MatchManagerTest extends AbstractDatabaseTestCase
      */
     public function testRemoveMatch($categoryId, $matchId, $removeId, $removeMatchId)
     {
-        /* @var MatchManager $matchManager */
+        /** @var MatchManager $matchManager */
         $matchManager = $this->getContainer()->get('ongr_category_manager.match_manager');
         $matchManager->match($categoryId, $matchId);
 
@@ -268,7 +268,7 @@ class MatchManagerTest extends AbstractDatabaseTestCase
             \SplFileObject::SKIP_EMPTY
         );
 
-        /* @var MatchManager $matchManager */
+        /** @var MatchManager $matchManager */
         $matchManager = $this->getContainer()->get('ongr_category_manager.match_manager');
         $matchManager->matchMultiple($iterator, $skipLines, $flushCount);
 
@@ -289,7 +289,7 @@ class MatchManagerTest extends AbstractDatabaseTestCase
     {
         $result = [];
 
-        /* @var Match $match */
+        /** @var Match $match */
         foreach ($matches as $match) {
             $result[$match->getCategory()->getId()] = $match->getMatchedCategory()->getId();
         }

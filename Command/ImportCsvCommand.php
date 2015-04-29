@@ -60,7 +60,7 @@ class ImportCsvCommand extends ContainerAwareCommand
             'flush_count' => $input->getOption('flush-count'),
         ];
 
-        /* @var TransferManager $transferManager */
+        /** @var TransferManager $transferManager */
         $transferManager = $this->getContainer()->get('ongr_category_manager.transfer_manager');
         $transferManager->transfer('csv', 'mysql', $providerOptions, $writerOptions, $output);
     }

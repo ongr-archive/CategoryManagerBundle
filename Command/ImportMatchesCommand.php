@@ -59,7 +59,7 @@ class ImportMatchesCommand extends ContainerAwareCommand
             \SplFileObject::SKIP_EMPTY
         );
 
-        /* @var MatchManager $matchManager */
+        /** @var MatchManager $matchManager */
         $matchManager = $this->getContainer()->get('ongr_category_manager.match_manager');
         $matchManager->matchMultiple(
             $iterator,

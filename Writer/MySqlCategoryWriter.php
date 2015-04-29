@@ -96,7 +96,7 @@ class MySqlCategoryWriter implements CategoryWriterInterface
         $this->outputLine("Starting category import, flush count: $flushCount");
         $this->output && $this->progress->start($this->output);
 
-        /* @var Category $category */
+        /** @var Category $category */
         foreach ($categories as $category) {
             if ($this->persistCategory($category, $rootNode)) {
                 continue;
@@ -178,7 +178,7 @@ class MySqlCategoryWriter implements CategoryWriterInterface
         $children = $this->delayed[$category->getId()];
         unset($this->delayed[$category->getId()]);
 
-        /* @var Category $childCategory */
+        /** @var Category $childCategory */
         foreach ($children as $childCategory) {
             $count++;
 

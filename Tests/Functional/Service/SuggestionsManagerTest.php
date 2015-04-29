@@ -87,7 +87,6 @@ class SuggestionsManagerTest extends ElasticsearchTestCase
             ],
         ];
         // Expected result.
-
         // Case #1 vegetables from second root, with sorting.
         $out[] = [
             'vegetables',

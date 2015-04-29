@@ -55,7 +55,7 @@ class CategoryRepositoryTest extends AbstractDatabaseTestCase
     {
         $manager = $this->getEntityManager();
 
-        /* @var CategoryRepository $repo */
+        /** @var CategoryRepository $repo */
         $repo = $manager->getRepository('ONGRCategoryManagerBundle:Category');
 
         $reference = $manager->getReference('ONGRCategoryManagerBundle:Category', $id);

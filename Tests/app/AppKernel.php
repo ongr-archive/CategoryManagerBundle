@@ -13,7 +13,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new ONGR\ElasticsearchBundle\ONGRElasticsearchBundle(),
-            new ONGR\TestingBundle\ONGRTestingBundle(),
             new ONGR\ConnectionsBundle\ONGRConnectionsBundle(),
             new ONGR\CategoryManagerBundle\ONGRCategoryManagerBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
