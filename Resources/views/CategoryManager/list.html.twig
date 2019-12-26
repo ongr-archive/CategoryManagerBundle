@@ -2,6 +2,18 @@
 
 {% block body_attributes %}ng-app="ongr.category-manager"{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% if locales %}
+    <script>
+        var locales = ['{{ locales | join("','") | raw }}'];
+    {% else %}
+        var locales = ['{{ default_locale }}'];
+    {% endif %}
+    var default_locale = '{{ default_locale }}';
+    </script>
+{% endblock %}
+
 {% block main %}
     <div class="container-fluid">
         <div class="row">

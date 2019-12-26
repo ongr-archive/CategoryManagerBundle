@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use ONGR\CategoryManagerBundle\Entity\Category;
 use ONGR\CategoryManagerBundle\Repository\CategoryRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides basic CRUD operations for category manager.
@@ -27,13 +28,42 @@ class CategoryManager
     protected $entityManager;
 
     /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * @var bool
+     */
+    private $translationsEnabled;
+
+    /**
+     * @var string
+     */
+    private $defaultLocale;
+
+    /**
+     * @var array
+     */
+    private $locales;
+
+    /**
      * Constructor.
      *
      * @param EntityManagerInterface $entityManager
+     * @param ContainerInterface     $container
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container)
     {
         $this->entityManager = $entityManager;
+        $this->container = $container;
+
+        $this->translationsEnabled = $this->container
+            ->getParameter('ongr_category_manager.translations.enabled') == true;
+        $this->defaultLocale = $this->container
+            ->getParameter('ongr_category_manager.translations.default_locale');
+        $this->locales = $this->container
+            ->getParameter('ongr_category_manager.translations.locales');
     }
 
     /**
@@ -99,7 +129,7 @@ class CategoryManager
             true
         );
 
-        return $tree;
+        return $this->translateCategoryTree($tree);
     }
 
     /**
@@ -220,5 +250,53 @@ class CategoryManager
         }
 
         return $out;
+    }
+
+    /**
+     * Returns translated category tree.
+     *
+     * @param array $categoryTree
+     *
+     * @return array
+     */
+    protected function translateCategoryTree(array $categoryTree = [])
+    {
+        if (!$this->translationsEnabled) {
+            return $categoryTree;
+        }
+        if (empty($categoryTree)) {
+            return $categoryTree;
+        }
+
+        $repository = $this->entityManager->getRepository('Gedmo\Translatable\Entity\Translation');
+
+        foreach ($categoryTree as &$node) {
+            if (!isset($node['id']) || !isset($node['title'])) {
+                continue;
+            }
+
+            $translations = $repository->findTranslationsByObjectId($node['id']);
+            foreach ($this->locales as $locale) {
+                if (!isset($translations[$locale])) {
+                    continue;
+                }
+
+                foreach ($translations[$locale] as $field => $value) {
+                    $node["{$field}_{$locale}"] = $value;
+
+                    // Override field's value with translated value of default locale.
+                    if ($locale == $this->defaultLocale) {
+                        $node[$field] = $value;
+                    }
+                }
+            }
+
+            if (isset($node['__children'])) {
+                $node['__children'] = $this->translateCategoryTree($node['__children']);
+            }
+        }
+        unset($node);
+
+        return $categoryTree;
     }
 }

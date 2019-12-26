@@ -33,6 +33,11 @@ class ONGRCategoryManagerExtension extends Extension
         $container->setParameter('ongr_category_manager.connection.index_name', $config['connection']['index_name']);
         $container->setParameter('ongr_category_manager.connection.host', $config['connection']['host']);
 
+        // Extract translation settings.
+        $container->setParameter('ongr_category_manager.translations.enabled', $config['translations']['enabled']);
+        $container->setParameter('ongr_category_manager.translations.default_locale', $config['translations']['default_locale']);
+        $container->setParameter('ongr_category_manager.translations.locales', $config['translations']['locales']);
+
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('injection.yml');

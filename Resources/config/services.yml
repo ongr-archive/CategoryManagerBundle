@@ -16,6 +16,7 @@ services:
         class: %ongr_category_manager.category_manager.class%
         arguments:
             - @ongr_category_manager.entity_manager
+            - @service_container
 
     ongr_category_manager.transfer_manager:
         class: %ongr_category_manager.transfer_manager.class%
